@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "UMD",
+    "moduleResolution": "node",
+    "rootDir": "./",
+    "baseUrl": "./src",
+    "jsx": "react-jsxdev",
+    "strict": true,
+    "pretty": true,
+    "esModuleInterop": true,
+    "paths": {
+      "constants/*": ["constants/*"],
+      "pages/*": ["pages/*"],
+      "components/*": ["components/*"],
+      "modules/*": ["modules/*"]
+    }
+  },
+  "include": ["./src"]
+}
