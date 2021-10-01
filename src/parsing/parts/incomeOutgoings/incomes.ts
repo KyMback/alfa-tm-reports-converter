@@ -35,7 +35,7 @@ export const parseIncome = (
 
   let curIndex = index + skipTitleAndHeader;
 
-  const income: ReturnType<typeof parseIncome>["income"] = [];
+  const income: Array<IncomeParsingResult> = [];
   for (; curIndex < maxIndex; curIndex++) {
     if (isPartOrSubpart(sheet, curIndex)) {
       return {
@@ -44,9 +44,8 @@ export const parseIncome = (
       };
     }
 
-    if (
-      !supportedIncomeTypes.includes(String(getCell(sheet, "B", curIndex).v))
-    ) {
+    const type = String(getCell(sheet, "B", curIndex).v);
+    if (!supportedIncomeTypes.includes(type)) {
       // TODO: currently do not support other incomes
       continue;
     }
