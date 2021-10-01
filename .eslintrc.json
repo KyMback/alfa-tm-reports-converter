@@ -1,6 +1,6 @@
 {
   "extends": ["plugin:react/recommended", "google", "prettier"],
-  "parser": "@babel/eslint-parser",
+  "parser": "@typescript-eslint/parser",
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
     "prettier/prettier": "error",
