@@ -7,7 +7,11 @@ import {
   parseNumber,
   parseString,
 } from "../../utils";
-import { outgoingsTitle, skipTitleAndHeader } from "../../constants";
+import {
+  outgoingsTitle,
+  skipTitleAndHeader,
+  supportedOutgoingsTypes,
+} from "../../constants";
 
 export type OutgoingsParsingResult = {
   date: Date;
@@ -41,7 +45,9 @@ export const parseOutgoings = (
 
     const type = String(getCell(sheet, "B", curIndex).v);
 
-    if (type.includes("УДЕРЖАНИЕ ВОЗНАГРАЖДЕНИЯ")) {
+    if (
+      !supportedOutgoingsTypes.find((supported) => type.includes(supported))
+    ) {
       // TODO: currently do not support other outgoings
       continue;
     }

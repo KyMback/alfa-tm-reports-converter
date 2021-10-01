@@ -16,3 +16,6 @@ export const partsAndSubParts = [...partsTitles, incomeTitle, outgoingsTitle];
 export const skipTitleAndHeader = 2;
 
 export const supportedIncomeTypes = ["Дивиденды"];
+export const supportedOutgoingsTypes = [
+  "Удержание налога при поступлении дивидендов",
+];
