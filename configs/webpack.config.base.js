@@ -15,12 +15,6 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
-    // alias: {
-    //   constants: resolve(srcPath, "constants"),
-    //   pages: resolve(srcPath, "pages"),
-    //   components: resolve(srcPath, "components"),
-    //   modules: resolve(srcPath, "modules"),
-    // },
   },
   module: {
     rules: [
