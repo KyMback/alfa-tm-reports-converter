@@ -3,10 +3,13 @@
     "target": "ES5",
     "module": "ES6",
     "moduleResolution": "node",
-    "rootDir": "./",
-    "baseUrl": "./src",
     "jsx": "react-jsxdev",
     "strict": true,
+    "rootDir": "./",
+    "baseUrl": "./src",
+    "paths": {
+      "typings/*": ["typings/*"],
+    }
   },
   "include": ["./src"],
 }

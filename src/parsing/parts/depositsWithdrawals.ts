@@ -1,8 +1,7 @@
 import { WorkSheet } from "xlsx";
 import { getTitle } from "../utils";
 import { depositsWithdrawals, skipTitleAndHeader } from "../constants";
-
-export type DepositsWithdrawals = {};
+import { DepositsWithdrawals } from "typings/parsing";
 
 export const parseDepositsWithdrawals = (
   sheet: WorkSheet,

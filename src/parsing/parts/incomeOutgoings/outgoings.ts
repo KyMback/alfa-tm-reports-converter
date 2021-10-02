@@ -12,14 +12,7 @@ import {
   skipTitleAndHeader,
   supportedOutgoingsTypes,
 } from "../../constants";
-
-export type OutgoingsParsingResult = {
-  date: Date;
-  currency: string;
-  sum: number;
-  count: number;
-  instrument: string;
-};
+import { OutgoingsParsingResult } from "typings/parsing";
 
 const typeRegexp = /.+акциям (.+) (\d+\.00)/;
 

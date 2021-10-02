@@ -1,14 +1,11 @@
 /* eslint-disable react/jsx-key */
-import { ParseResult } from "../parsing";
-import { useMemo } from "react";
-import { Dividend, getDividends } from "./utils";
 import { Column, useTable } from "react-table";
 import { format } from "date-fns";
 import { round } from "../utils/math";
+import { Dividend } from "typings/internal";
 
 interface Props {
-  incomes: ParseResult["incomes"];
-  outgoings: ParseResult["outgoings"];
+  dividends: Array<Dividend>;
 }
 
 const columns: Array<Column<Dividend>> = [
@@ -50,8 +47,7 @@ const columns: Array<Column<Dividend>> = [
   },
 ];
 
-export const DividendsTable = ({ incomes, outgoings }: Props) => {
-  const dividends = useMemo(() => getDividends(incomes, outgoings), []);
+export const DividendsTable = ({ dividends }: Props) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns,

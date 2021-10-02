@@ -12,17 +12,7 @@ import {
   skipTitleAndHeader,
   supportedIncomeTypes,
 } from "../../constants";
-
-export type IncomeParsingResult = {
-  date: Date;
-  currency: string;
-  incomeForOne: number;
-  gross: number;
-  count: number;
-  ticker: string;
-  instrument: string;
-  isin: string;
-};
+import { IncomeParsingResult } from "typings/parsing";
 
 export const parseIncome = (
   sheet: WorkSheet,
