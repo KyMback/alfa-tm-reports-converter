@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "ES6",
+    "moduleResolution": "node",
+    "rootDir": "./",
+    "baseUrl": "./src",
+    "jsx": "react-jsxdev",
+    "strict": true,
+  },
+  "include": ["./src"],
+}

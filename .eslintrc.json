@@ -1,0 +1,11 @@
+{
+  "extends": ["plugin:react/recommended", "google", "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "object-curly-spacing": ["error", "always"]
+  }
+}
