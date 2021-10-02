@@ -9,7 +9,7 @@ export const parseIncomeOutgoings = (
   index: number,
   maxIndex: number,
 ): {
-  income: Array<IncomeParsingResult>;
+  incomes: Array<IncomeParsingResult>;
   outgoings: Array<OutgoingsParsingResult>;
   newIndex: number;
 } => {
@@ -25,7 +25,7 @@ export const parseIncomeOutgoings = (
   );
 
   return {
-    income: incomeResult.income,
+    incomes: incomeResult.incomes,
     outgoings: outgoingsResult.outgoings,
     newIndex: outgoingsResult.newIndex,
   };

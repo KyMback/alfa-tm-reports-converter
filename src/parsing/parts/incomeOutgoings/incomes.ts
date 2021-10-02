@@ -17,7 +17,7 @@ export type IncomeParsingResult = {
   date: Date;
   currency: string;
   incomeForOne: number;
-  allIncome: number;
+  gross: number;
   count: number;
   ticker: string;
   instrument: string;
@@ -28,7 +28,7 @@ export const parseIncome = (
   sheet: WorkSheet,
   index: number,
   maxIndex: number,
-): { income: Array<IncomeParsingResult>; newIndex: number } => {
+): { incomes: Array<IncomeParsingResult>; newIndex: number } => {
   if (getTitle(sheet, index) !== incomeTitle) {
     throw new Error("Incorrect format");
   }
@@ -39,7 +39,7 @@ export const parseIncome = (
   for (; curIndex < maxIndex; curIndex++) {
     if (isPartOrSubpart(sheet, curIndex)) {
       return {
-        income: income,
+        incomes: income,
         newIndex: curIndex,
       };
     }
@@ -58,12 +58,12 @@ export const parseIncome = (
       instrument: parseString(sheet, "F", curIndex),
       ticker: parseString(sheet, "G", curIndex),
       isin: parseString(sheet, "H", curIndex),
-      allIncome: parseNumber(sheet, "I", curIndex),
+      gross: parseNumber(sheet, "I", curIndex),
     });
   }
 
   return {
-    income: income,
+    incomes: income,
     newIndex: curIndex,
   };
 };

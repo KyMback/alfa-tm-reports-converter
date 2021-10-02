@@ -4,6 +4,8 @@ import { partsAndSubParts } from "./constants";
 
 type Column = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J";
 
+const referenceDate = new Date(0, 0, 0, 12, 0, 0, 0);
+
 export const getCell = (
   sheet: WorkSheet,
   column: string,
@@ -22,7 +24,7 @@ export const parseDate = (sheet: WorkSheet, column: Column, index: number) => {
     return throwParseError("string", column, index);
   }
 
-  return parse(cell.v, "dd.MM.yyyy", new Date());
+  return parse(cell.v, "dd.MM.yyyy", referenceDate);
 };
 
 export const parseNumber = (

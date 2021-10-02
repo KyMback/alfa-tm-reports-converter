@@ -10,9 +10,9 @@ import {
 import { IncomeParsingResult } from "./parts/incomeOutgoings/incomes";
 import { OutgoingsParsingResult } from "./parts/incomeOutgoings/outgoings";
 
-interface ParseResult {
+export interface ParseResult {
   deals: Array<DealItemParsingResult>;
-  income: Array<IncomeParsingResult>;
+  incomes: Array<IncomeParsingResult>;
   outgoings: Array<OutgoingsParsingResult>;
   depositsWithdrawals: Array<DepositsWithdrawals>;
 }
@@ -38,7 +38,7 @@ export const parse = async (file: File) => {
 
   const result: ParseResult = {
     deals: [],
-    income: [],
+    incomes: [],
     outgoings: [],
     depositsWithdrawals: [],
   };
@@ -56,7 +56,7 @@ export const parse = async (file: File) => {
       case incomeOutgoings: {
         const incomeOutgoings = parseIncomeOutgoings(sheet, index, maxIndex);
         index = incomeOutgoings.newIndex - 1;
-        result.income = incomeOutgoings.income;
+        result.incomes = incomeOutgoings.incomes;
         result.outgoings = incomeOutgoings.outgoings;
         break;
       }
