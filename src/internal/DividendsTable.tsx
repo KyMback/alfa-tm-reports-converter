@@ -1,12 +1,10 @@
 /* eslint-disable react/jsx-key */
 import { Column, useTable } from "react-table";
 import { format } from "date-fns";
-import { round } from "../utils/math";
+import { round } from "utils/math";
 import { Dividend } from "typings/internal";
-
-interface Props {
-  dividends: Array<Dividend>;
-}
+import { useRootStore } from "hooks/useRootStore";
+import { observer } from "mobx-react-lite";
 
 const columns: Array<Column<Dividend>> = [
   {
@@ -47,11 +45,13 @@ const columns: Array<Column<Dividend>> = [
   },
 ];
 
-export const DividendsTable = ({ dividends }: Props) => {
+export const DividendsTable = observer(() => {
+  const rootStore = useRootStore();
+
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns,
-      data: dividends,
+      data: rootStore.dividends,
     });
 
   return (
@@ -83,4 +83,4 @@ export const DividendsTable = ({ dividends }: Props) => {
       </table>
     </div>
   );
-};
+});

@@ -1,22 +1,11 @@
-import { Dividend } from "typings/internal";
-import fileDownload from "js-file-download";
-import { toCsv } from "utils/csv";
-import { dividendsToCsvItems, intelinvestCsvColumns } from "./converters";
+import { useRootStore } from "hooks/useRootStore";
 
-interface Props {
-  dividends: Array<Dividend>;
-}
+export const IntelinvestButton = () => {
+  const rootStore = useRootStore();
 
-export const IntelinvestButton = ({ dividends }: Props) => {
   return (
-    <button onClick={() => download(dividends)}>
+    <button onClick={rootStore.downloadIntelinvestDividends}>
       Download Intelinvest import file
     </button>
   );
-};
-
-const download = (dividends: Array<Dividend>) => {
-  const items = dividendsToCsvItems(dividends);
-  const csv = toCsv(intelinvestCsvColumns, items, ";");
-  fileDownload(csv, `dividends.csv`);
 };

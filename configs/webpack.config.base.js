@@ -18,6 +18,10 @@ module.exports = {
     alias: {
       typings: resolve(srcPath, "typings"),
       utils: resolve(srcPath, "utils"),
+      services: resolve(srcPath, "services"),
+      stores: resolve(srcPath, "stores"),
+      contexts: resolve(srcPath, "contexts"),
+      hooks: resolve(srcPath, "hooks"),
     },
   },
   module: {

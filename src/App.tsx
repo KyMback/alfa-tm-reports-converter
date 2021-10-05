@@ -1,21 +1,14 @@
-import { parse } from "./parsing";
 import { DividendsTable } from "./internal/DividendsTable";
-import { useMemo, useState } from "react";
-import { ParseResult } from "typings/parsing";
-import { getDividends } from "./internal/converters";
 import { IntelinvestButton } from "./intelinvest/IntelinvestButton";
+import { RootStoreContext } from "contexts/rootStoreContext";
+import { RootStore } from "stores/rootStore";
+import { Observer } from "mobx-react-lite";
+
+const rootStore = new RootStore();
 
 export const App = () => {
-  const [parsingResult, setParsingResult] = useState<ParseResult | undefined>();
-  const dividends = useMemo(
-    () =>
-      parsingResult &&
-      getDividends(parsingResult.incomes, parsingResult.outgoings),
-    [parsingResult?.incomes, parsingResult?.outgoings],
-  );
-
   return (
-    <>
+    <RootStoreContext.Provider value={rootStore}>
       <input
         type="file"
         onChange={async (value) => {
@@ -24,18 +17,23 @@ export const App = () => {
             return;
           }
 
-          const result = await parse(file);
-          setParsingResult(result);
+          await rootStore.parseReport(file);
         }}
       />
-      {dividends && (
-        <div>
-          <div>
-            <IntelinvestButton dividends={dividends} />
-          </div>
-          <DividendsTable dividends={dividends} />
-        </div>
-      )}
-    </>
+      <Observer>
+        {() =>
+          rootStore.reportParsed ? (
+            <div>
+              <div>
+                <IntelinvestButton />
+              </div>
+              <DividendsTable />
+            </div>
+          ) : (
+            <></>
+          )
+        }
+      </Observer>
+    </RootStoreContext.Provider>
   );
 };

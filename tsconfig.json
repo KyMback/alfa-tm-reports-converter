@@ -1,17 +1,22 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "target": "ES5",
     "module": "ES6",
     "moduleResolution": "node",
     "jsx": "react-jsxdev",
     "strict": true,
+    "allowSyntheticDefaultImports": true,
     "rootDir": "./",
     "baseUrl": "./src",
     "paths": {
       "typings/*": ["typings/*"],
       "utils/*": ["utils/*"],
-    },
-    "allowSyntheticDefaultImports": true
+      "services/*": ["services/*"],
+      "stores/*": ["stores/*"],
+      "contexts/*": ["contexts/*"],
+      "hooks/*": ["hooks/*"]
+    }
   },
   "include": ["./src"],
 }
