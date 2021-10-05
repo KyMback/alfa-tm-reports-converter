@@ -1,7 +1,6 @@
 import { InternalConvertingService } from "services/internalConvertingService";
 import { AlfaReportParsingService } from "services/alfaReportParsingService";
 import { IntelinvestConvertingService } from "services/intelinvest/intelinvestConvertingService";
-import { Dividend } from "typings/internal";
 import { toCsv } from "utils/csv";
 import fileDownload from "js-file-download";
 import {
@@ -12,6 +11,7 @@ import {
   runInAction,
 } from "mobx";
 import { ParseResult } from "typings/parsing";
+import { DividendsStore } from "stores/dividendsStore";
 
 export class RootStore {
   private readonly internalConvertingService = new InternalConvertingService();
@@ -19,8 +19,9 @@ export class RootStore {
   private readonly intelinvestConvertingService =
     new IntelinvestConvertingService();
 
+  public readonly dividendsStore = new DividendsStore();
+
   public parsingResult: ParseResult | null = null;
-  public dividends: Array<Dividend> = [];
 
   public get reportParsed() {
     return this.parsingResult != null;
@@ -28,7 +29,6 @@ export class RootStore {
 
   constructor() {
     makeObservable(this, {
-      dividends: observable,
       parsingResult: observable,
       reportParsed: computed,
       parseReport: action,
@@ -44,7 +44,7 @@ export class RootStore {
 
     runInAction(() => {
       this.parsingResult = result;
-      this.dividends = dividends;
+      this.dividendsStore.setDividends(dividends);
     });
   };
 
@@ -54,7 +54,7 @@ export class RootStore {
     }
 
     const items = this.intelinvestConvertingService.dividendsToCsvItems(
-      this.dividends,
+      this.dividendsStore.selectedDividends,
     );
     const csv = toCsv(
       this.intelinvestConvertingService.intelinvestCsvColumns,

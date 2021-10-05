@@ -1,12 +1,31 @@
 /* eslint-disable react/jsx-key */
-import { Column, useTable } from "react-table";
+import { Column, useRowSelect, useTable } from "react-table";
 import { format } from "date-fns";
 import { round } from "utils/math";
 import { Dividend } from "typings/internal";
 import { useRootStore } from "hooks/useRootStore";
 import { observer } from "mobx-react-lite";
+import { Checkbox } from "../components/Checkbox";
 
 const columns: Array<Column<Dividend>> = [
+  {
+    id: "selection",
+    // @ts-ignore
+    // eslint-disable-next-line react/prop-types
+    Header: ({ getToggleAllRowsSelectedProps }) => (
+      <div>
+        <Checkbox {...getToggleAllRowsSelectedProps()} />
+      </div>
+    ),
+    // @ts-ignore
+    // eslint-disable-next-line react/prop-types
+    Cell: ({ row }) => (
+      <div>
+        {/* eslint-disable-next-line react/prop-types */}
+        <Checkbox {...row.getToggleRowSelectedProps()} />
+      </div>
+    ),
+  },
   {
     accessor: (originalRow) => format(originalRow.date, "dd.MM.yyyy"),
     Header: "Date",
@@ -46,13 +65,26 @@ const columns: Array<Column<Dividend>> = [
 ];
 
 export const DividendsTable = observer(() => {
-  const rootStore = useRootStore();
+  const { dividendsStore } = useRootStore();
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({
-      columns,
-      data: rootStore.dividends,
-    });
+    useTable(
+      {
+        columns,
+        data: dividendsStore.dividends,
+        stateReducer: (newState, action) => {
+          switch (action.type) {
+            case "toggleRowSelected":
+            case "toggleAllRowsSelected":
+              // @ts-ignore
+              dividendsStore.setSelectedDividendIds(newState.selectedRowIds);
+          }
+
+          return newState;
+        },
+      },
+      useRowSelect,
+    );
 
   return (
     <div>
