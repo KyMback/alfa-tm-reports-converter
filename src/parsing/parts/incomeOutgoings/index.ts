@@ -1,8 +1,9 @@
 import { WorkSheet } from "xlsx";
 import { getTitle } from "../../utils";
 import { incomeOutgoings } from "../../constants";
-import { OutgoingsParsingResult, parseOutgoings } from "./outgoings";
-import { IncomeParsingResult, parseIncome } from "./incomes";
+import { parseOutgoings } from "./outgoings";
+import { parseIncome } from "./incomes";
+import { IncomeParsingResult, OutgoingsParsingResult } from "typings/parsing";
 
 export const parseIncomeOutgoings = (
   sheet: WorkSheet,

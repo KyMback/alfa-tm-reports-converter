@@ -2,20 +2,9 @@ import { read } from "xlsx";
 import { getTitle } from "./utils";
 import { dealsTitle, depositsWithdrawals, incomeOutgoings } from "./constants";
 import { parseIncomeOutgoings } from "./parts/incomeOutgoings";
-import { DealItemParsingResult, parseDeals } from "./parts/deals";
-import {
-  DepositsWithdrawals,
-  parseDepositsWithdrawals,
-} from "./parts/depositsWithdrawals";
-import { IncomeParsingResult } from "./parts/incomeOutgoings/incomes";
-import { OutgoingsParsingResult } from "./parts/incomeOutgoings/outgoings";
-
-export interface ParseResult {
-  deals: Array<DealItemParsingResult>;
-  incomes: Array<IncomeParsingResult>;
-  outgoings: Array<OutgoingsParsingResult>;
-  depositsWithdrawals: Array<DepositsWithdrawals>;
-}
+import { parseDeals } from "./parts/deals";
+import { parseDepositsWithdrawals } from "./parts/depositsWithdrawals";
+import { ParseResult } from "typings/parsing";
 
 const maxRowIndexRegexp = /\d+$/;
 

@@ -1,19 +1,9 @@
-import { ParseResult } from "../parsing";
-
-export type Dividend = {
-  date: Date;
-  currency: string;
-  ticker: string;
-  instrument: string;
-  isin: string;
-  gross: number;
-  count: number;
-  tax?: number;
-};
+import { Dividend } from "typings/internal";
+import { IncomeParsingResult, OutgoingsParsingResult } from "typings/parsing";
 
 export const getDividends = (
-  incomes: ParseResult["incomes"],
-  outgoings: ParseResult["outgoings"],
+  incomes: Array<IncomeParsingResult>,
+  outgoings: Array<OutgoingsParsingResult>,
 ): Array<Dividend> => {
   const dividends: Array<Dividend> = [];
 

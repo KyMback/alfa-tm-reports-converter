@@ -1,8 +1,7 @@
 import { WorkSheet } from "xlsx";
 import { getTitle } from "../utils";
 import { dealsTitle, skipTitleAndHeader } from "../constants";
-
-export type DealItemParsingResult = {};
+import { DealItemParsingResult } from "typings/parsing";
 
 export const parseDeals = (
   sheet: WorkSheet,

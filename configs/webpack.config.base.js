@@ -1,4 +1,4 @@
-const { join } = require("path");
+const { join, resolve } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const rootPath = join(__dirname, "..");
@@ -15,6 +15,10 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
+    alias: {
+      typings: resolve(srcPath, "typings"),
+      utils: resolve(srcPath, "utils"),
+    },
   },
   module: {
     rules: [
