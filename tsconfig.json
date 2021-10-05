@@ -9,7 +9,9 @@
     "baseUrl": "./src",
     "paths": {
       "typings/*": ["typings/*"],
-    }
+      "utils/*": ["utils/*"],
+    },
+    "allowSyntheticDefaultImports": true
   },
   "include": ["./src"],
 }

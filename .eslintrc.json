@@ -6,6 +6,7 @@
     "prettier/prettier": "error",
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
+    "require-jsdoc": "off",
     "object-curly-spacing": ["error", "always"]
   }
 }

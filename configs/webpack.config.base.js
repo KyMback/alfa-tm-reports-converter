@@ -17,6 +17,7 @@ module.exports = {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
     alias: {
       typings: resolve(srcPath, "typings"),
+      utils: resolve(srcPath, "utils"),
     },
   },
   module: {
