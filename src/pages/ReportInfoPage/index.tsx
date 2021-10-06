@@ -7,7 +7,10 @@ import { useState } from "react";
 const tabItems = [
   {
     title: "Дивиденды",
-    Content: DividendsTable,
+    Content: () => {
+      const { dividendsStore } = useRootStore();
+      return <DividendsTable dividendsStore={dividendsStore} />;
+    },
   },
 ];
 

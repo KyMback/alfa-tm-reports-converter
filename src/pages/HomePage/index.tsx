@@ -12,6 +12,7 @@ import { emptyFunction } from "utils/functions";
 import { ImAttachment } from "react-icons/im";
 import { Reports } from "constants/reports";
 import { MainLayout } from "modules/layouts/MainLayout";
+import homeImage from "../../assets/images/home_image.png";
 
 export const HomePage = () => {
   const rootStore = useRootStore();
@@ -33,7 +34,7 @@ export const HomePage = () => {
           <input {...getInputProps()} />
         </DropZone>
         <MainContentWrapper>
-          <Image />
+          <Image src={homeImage} />
           <InfoWrapper>
             {`Здесь Вы можете конвертировать отчеты доверительного управления Аlfa-банка в удобный Вам формат (IntelInvest).`}
           </InfoWrapper>

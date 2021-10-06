@@ -3,7 +3,6 @@ import { Column, useRowSelect, useTable } from "react-table";
 import { format } from "date-fns";
 import { round } from "utils/math";
 import { Dividend } from "typings/internal";
-import { useRootStore } from "hooks/useRootStore";
 import { observer } from "mobx-react-lite";
 import { Checkbox } from "components/Checkbox";
 import {
@@ -15,6 +14,7 @@ import {
   TableHeadRow,
   TableRow,
 } from "components/Table";
+import { DividendsStore } from "stores/dividendsStore";
 
 const columns: Array<Column<Dividend>> = [
   {
@@ -58,9 +58,11 @@ const columns: Array<Column<Dividend>> = [
   },
 ];
 
-export const DividendsTable = observer(() => {
-  const { dividendsStore } = useRootStore();
+interface Props {
+  dividendsStore: DividendsStore;
+}
 
+export const DividendsTable = observer(({ dividendsStore }: Props) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
       {

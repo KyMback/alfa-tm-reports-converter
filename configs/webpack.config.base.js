@@ -38,11 +38,19 @@ module.exports = {
           loader: "babel-loader",
         },
       },
+      {
+        test: /\.(png)$/i,
+        type: "asset/resource",
+      },
+      {
+        test: /\.(woff|woff2|ttf)$/i,
+        type: "asset/resource",
+      },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: join(srcPath, "index.html"),
+      template: join(rootPath, "public/index.html"),
     }),
   ],
 };
