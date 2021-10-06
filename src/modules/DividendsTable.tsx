@@ -6,6 +6,15 @@ import { Dividend } from "typings/internal";
 import { useRootStore } from "hooks/useRootStore";
 import { observer } from "mobx-react-lite";
 import { Checkbox } from "components/Checkbox";
+import {
+  Table,
+  TableBody,
+  TableDataCell,
+  TableHeadCell,
+  TableHeader,
+  TableHeadRow,
+  TableRow,
+} from "components/Table/styles";
 
 const columns: Array<Column<Dividend>> = [
   {
@@ -21,39 +30,31 @@ const columns: Array<Column<Dividend>> = [
   },
   {
     accessor: (originalRow) => format(originalRow.date, "dd.MM.yyyy"),
-    Header: "Date",
+    Header: "Дата",
   },
   {
     accessor: "ticker",
-    Header: "Ticker",
+    Header: "Тикер",
   },
   {
     accessor: "currency",
-    Header: "Currency",
+    Header: "Валюта",
   },
   {
     accessor: "count",
-    Header: "Count",
+    Header: "Количество",
   },
   {
     accessor: "gross",
-    Header: "Gross income",
+    Header: "Прибыль",
   },
   {
     accessor: ({ gross, count }) => round(gross / count, 2),
-    Header: "Gross income for one",
+    Header: "Прибыль на одну",
   },
   {
     accessor: "tax",
-    Header: "Tax",
-  },
-  {
-    accessor: ({ gross, tax }) => round(gross - (tax || 0), 2),
-    Header: "Net income",
-  },
-  {
-    accessor: ({ gross, count, tax }) => round((gross - (tax || 0)) / count, 2),
-    Header: "Net income for one",
+    Header: "Налог",
   },
 ];
 
@@ -80,28 +81,34 @@ export const DividendsTable = observer(() => {
     );
 
   return (
-    <table {...getTableProps()}>
-      <thead>
+    <Table {...getTableProps()}>
+      <TableHeader>
         {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
+          <TableHeadRow {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+              <TableHeadCell {...column.getHeaderProps()}>
+                {column.render("Header")}
+              </TableHeadCell>
             ))}
-          </tr>
+          </TableHeadRow>
         ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
+      </TableHeader>
+      <TableBody {...getTableBodyProps()}>
         {rows.map((row) => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()}>
+            <TableRow {...row.getRowProps()}>
               {row.cells.map((cell) => {
-                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+                return (
+                  <TableDataCell {...cell.getCellProps()}>
+                    {cell.render("Cell")}
+                  </TableDataCell>
+                );
               })}
-            </tr>
+            </TableRow>
           );
         })}
-      </tbody>
-    </table>
+      </TableBody>
+    </Table>
   );
 });
