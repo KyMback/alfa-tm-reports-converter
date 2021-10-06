@@ -13,18 +13,11 @@ const columns: Array<Column<Dividend>> = [
     // @ts-ignore
     // eslint-disable-next-line react/prop-types
     Header: ({ getToggleAllRowsSelectedProps }) => (
-      <div>
-        <Checkbox {...getToggleAllRowsSelectedProps()} />
-      </div>
+      <Checkbox {...getToggleAllRowsSelectedProps()} />
     ),
     // @ts-ignore
     // eslint-disable-next-line react/prop-types
-    Cell: ({ row }) => (
-      <div>
-        {/* eslint-disable-next-line react/prop-types */}
-        <Checkbox {...row.getToggleRowSelectedProps()} />
-      </div>
-    ),
+    Cell: ({ row }) => <Checkbox {...row.getToggleRowSelectedProps()} />,
   },
   {
     accessor: (originalRow) => format(originalRow.date, "dd.MM.yyyy"),
@@ -87,32 +80,28 @@ export const DividendsTable = observer(() => {
     );
 
   return (
-    <div>
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-              ))}
+    <table {...getTableProps()}>
+      <thead>
+        {headerGroups.map((headerGroup) => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map((row) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map((cell) => {
+                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+              })}
             </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+          );
+        })}
+      </tbody>
+    </table>
   );
 });

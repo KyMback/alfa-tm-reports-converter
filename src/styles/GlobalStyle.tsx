@@ -9,12 +9,15 @@ export const GlobalStyle = createGlobalStyle`
   body {
     height: 100%;
     margin: 0;
-    font-family: ${(props) => props.theme.font};
     color: ${themeColor("onBackground")};
     background: ${themeColor("background")};
     overflow: hidden;
   }
-  
+
+  * {
+    font-family: ${(props) => props.theme.font};
+  }
+
   #root {
     height: 100%;
   }
