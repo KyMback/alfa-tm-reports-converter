@@ -14,7 +14,7 @@ import {
   TableHeader,
   TableHeadRow,
   TableRow,
-} from "components/Table/styles";
+} from "components/Table";
 
 const columns: Array<Column<Dividend>> = [
   {
