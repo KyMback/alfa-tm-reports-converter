@@ -26,6 +26,7 @@ module.exports = {
       pages: resolve(srcPath, "pages"),
       modules: resolve(srcPath, "modules"),
       styles: resolve(srcPath, "styles"),
+      constants: resolve(srcPath, "constants"),
     },
   },
   module: {

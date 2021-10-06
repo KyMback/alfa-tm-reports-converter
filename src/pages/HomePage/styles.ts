@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { themeColor } from "styles/utils";
-import { ContentLayout } from "modules/layouts/ContentLayout";
 import { Button } from "components/Button";
 
 export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  padding-top: 70px;
+  padding-bottom: 50px;
 `;
 
 export const DropZone = styled.div`
@@ -41,10 +42,6 @@ export const InfoWrapper = styled.div`
 
 export const Image = styled.img`
   height: 460px;
-`;
-
-export const HomeContentLayout = styled(ContentLayout)`
-  padding: 100px 160px 80px 160px;
 `;
 
 export const AttachButton = styled(Button)`

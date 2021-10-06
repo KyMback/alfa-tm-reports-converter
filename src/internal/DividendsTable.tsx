@@ -5,7 +5,7 @@ import { round } from "utils/math";
 import { Dividend } from "typings/internal";
 import { useRootStore } from "hooks/useRootStore";
 import { observer } from "mobx-react-lite";
-import { Checkbox } from "../components/Checkbox";
+import { Checkbox } from "components/Checkbox";
 
 const columns: Array<Column<Dividend>> = [
   {

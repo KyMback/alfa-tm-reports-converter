@@ -1,14 +1,16 @@
 import styled from "styled-components";
 import { themeColor } from "styles/utils";
 
-export const HeaderWrapper = styled.header`
+interface HeaderWrapperProps {
+  onlyTitle: boolean;
+}
+
+export const HeaderWrapper = styled.header<HeaderWrapperProps>`
   padding: 16px 160px 16px 160px;
   box-shadow: 0 10px 30px ${themeColor("shadow")};
   display: flex;
-`;
-
-export const HomeHeaderWrapper = styled(HeaderWrapper)`
-  justify-content: center;
+  justify-content: ${(props) => (props.onlyTitle ? "center" : "space-between")};
+  align-items: center;
 `;
 
 export const HeaderTitleLink = styled.a`
