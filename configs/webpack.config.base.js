@@ -22,6 +22,11 @@ module.exports = {
       stores: resolve(srcPath, "stores"),
       contexts: resolve(srcPath, "contexts"),
       hooks: resolve(srcPath, "hooks"),
+      components: resolve(srcPath, "components"),
+      pages: resolve(srcPath, "pages"),
+      modules: resolve(srcPath, "modules"),
+      styles: resolve(srcPath, "styles"),
+      constants: resolve(srcPath, "constants"),
     },
   },
   module: {
@@ -33,11 +38,19 @@ module.exports = {
           loader: "babel-loader",
         },
       },
+      {
+        test: /\.(png)$/i,
+        type: "asset/resource",
+      },
+      {
+        test: /\.(woff|woff2|ttf)$/i,
+        type: "asset/resource",
+      },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: join(srcPath, "index.html"),
+      template: join(rootPath, "public/index.html"),
     }),
   ],
 };

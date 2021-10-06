@@ -48,7 +48,7 @@ export class RootStore {
     });
   };
 
-  public downloadIntelinvestDividends = () => {
+  public downloadIntelinvest = () => {
     if (!this.reportParsed) {
       return;
     }

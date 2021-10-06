@@ -15,7 +15,12 @@
       "services/*": ["services/*"],
       "stores/*": ["stores/*"],
       "contexts/*": ["contexts/*"],
-      "hooks/*": ["hooks/*"]
+      "hooks/*": ["hooks/*"],
+      "components/*": ["components/*"],
+      "pages/*": ["pages/*"],
+      "modules/*": ["modules/*"],
+      "styles/*": ["styles/*"],
+      "constants/*": ["constants/*"]
     }
   },
   "include": ["./src"],

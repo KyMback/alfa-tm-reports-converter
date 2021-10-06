@@ -1,39 +1,23 @@
-import { DividendsTable } from "./internal/DividendsTable";
-import { IntelinvestButton } from "./intelinvest/IntelinvestButton";
 import { RootStoreContext } from "contexts/rootStoreContext";
 import { RootStore } from "stores/rootStore";
 import { Observer } from "mobx-react-lite";
+import { ThemeProvider } from "styled-components";
+import { defaultTheme } from "styles/themes";
+import { GlobalStyle } from "styles/GlobalStyle";
+import { HomePage } from "pages/HomePage";
+import { ReportInfoPage } from "pages/ReportInfoPage";
 
 const rootStore = new RootStore();
 
 export const App = () => {
   return (
     <RootStoreContext.Provider value={rootStore}>
-      <input
-        type="file"
-        onChange={async (value) => {
-          const file = value.target.files?.[0];
-          if (!file) {
-            return;
-          }
-
-          await rootStore.parseReport(file);
-        }}
-      />
-      <Observer>
-        {() =>
-          rootStore.reportParsed ? (
-            <div>
-              <div>
-                <IntelinvestButton />
-              </div>
-              <DividendsTable />
-            </div>
-          ) : (
-            <></>
-          )
-        }
-      </Observer>
+      <ThemeProvider theme={defaultTheme}>
+        <GlobalStyle />
+        <Observer>
+          {() => (rootStore.reportParsed ? <ReportInfoPage /> : <HomePage />)}
+        </Observer>
+      </ThemeProvider>
     </RootStoreContext.Provider>
   );
 };
