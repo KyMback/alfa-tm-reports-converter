@@ -22,6 +22,10 @@ module.exports = {
       stores: resolve(srcPath, "stores"),
       contexts: resolve(srcPath, "contexts"),
       hooks: resolve(srcPath, "hooks"),
+      components: resolve(srcPath, "components"),
+      pages: resolve(srcPath, "pages"),
+      modules: resolve(srcPath, "modules"),
+      styles: resolve(srcPath, "styles"),
     },
   },
   module: {
