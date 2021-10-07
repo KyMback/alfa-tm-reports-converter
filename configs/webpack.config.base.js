@@ -9,9 +9,6 @@ module.exports = {
   output: {
     path: join(rootPath, "dist"),
     clean: true,
-    library: {
-      type: "umd",
-    },
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
@@ -27,6 +24,9 @@ module.exports = {
       modules: resolve(srcPath, "modules"),
       styles: resolve(srcPath, "styles"),
       constants: resolve(srcPath, "constants"),
+      // To optimize bundle size
+      xlsx: "xlsx/dist/xlsx.mini.min.js",
+      mobx: "mobx/dist/mobx.esm.production.min.js",
     },
   },
   module: {

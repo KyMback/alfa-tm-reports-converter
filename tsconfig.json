@@ -2,7 +2,7 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "target": "ES5",
-    "module": "ES6",
+    "module": "ESNext",
     "moduleResolution": "node",
     "jsx": "react-jsxdev",
     "strict": true,
