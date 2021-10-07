@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { themeColor } from "styles/utils";
+import { themeColor } from "styles/helpers";
 import gilroyTtf from "../assets/fonts/Gilroy-Regular.ttf";
 import gilroyWoff from "../assets/fonts/Gilroy-Regular.woff";
 import gilroyWoff2 from "../assets/fonts/Gilroy-Regular.woff2";

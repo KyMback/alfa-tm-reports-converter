@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { themeColor } from "styles/utils";
+import { themeColor } from "styles/helpers";
 
 export const TabsWrapper = styled.div`
   width: 100%;

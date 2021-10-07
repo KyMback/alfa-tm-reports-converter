@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { themeColor } from "styles/utils";
+import { moreOrEqualTo, themeColor } from "styles/helpers";
 import { Button } from "components/Button";
 
 export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  padding-top: 70px;
-  padding-bottom: 50px;
+  height: min-content;
+  align-self: center;
 `;
 
 export const DropZone = styled.div`
@@ -15,36 +15,61 @@ export const DropZone = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
+
   background: ${themeColor("secondary")};
   color: ${themeColor("primary")};
   border: 5px solid ${themeColor("primary")};
   border-radius: 40px;
+
   font-size: 40px;
   line-height: 48px;
   font-weight: bold;
 `;
 
 export const MainContentWrapper = styled.div`
-  margin-left: 20px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+
+  @media (${moreOrEqualTo.laptop}) {
+    margin-left: 20px;
+  }
 `;
 
 export const InfoWrapper = styled.div`
-  width: 520px;
   text-align: center;
+
+  margin-bottom: 25px;
+
   font-weight: 500;
-  font-size: 24px;
-  line-height: 28px;
-  margin-bottom: 45px;
-  margin-top: 45px;
+  font-size: 20px;
+  line-height: 24px;
+
+  @media (${moreOrEqualTo.laptop}) {
+    margin-bottom: 45px;
+
+    font-size: 24px;
+    line-height: 28px;
+  }
 `;
 
 export const Image = styled.img`
-  height: 460px;
+  width: 250px;
+
+  @media (${moreOrEqualTo.mobileL}) {
+    width: 380px;
+  }
+
+  @media (${moreOrEqualTo.laptop}) {
+    width: 520px;
+  }
 `;
 
 export const AttachButton = styled(Button)`
-  font-size: 24px;
-  line-height: 29px;
+  width: 100%;
+
+  @media (${moreOrEqualTo.laptop}) {
+    font-size: 24px;
+    line-height: 29px;
+  }
 `;
