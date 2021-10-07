@@ -1,11 +1,12 @@
 import styled from "styled-components";
-import { themeColor } from "styles/utils";
+import { themeColor } from "styles/helpers";
 
 export const FooterWrapper = styled.footer`
-  box-shadow: 10px 0 30px ${themeColor("shadow")};
-  padding: 20px 160px;
   display: flex;
   justify-content: space-between;
+  z-index: 1000;
+  box-shadow: 10px 0 30px ${themeColor("shadow")};
+  padding: 20px 160px;
 `;
 
 export const DownloadFormatsWrapper = styled.div`

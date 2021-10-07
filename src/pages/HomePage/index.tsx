@@ -13,6 +13,7 @@ import { ImAttachment } from "react-icons/im";
 import { Reports } from "constants/reports";
 import { MainLayout } from "modules/layouts/MainLayout";
 import homeImage from "../../assets/images/home_image.png";
+import { LaptopLAndAbove } from "components/mediaQuery/LaptopLAndAbove";
 
 export const HomePage = () => {
   const rootStore = useRootStore();
@@ -29,10 +30,11 @@ export const HomePage = () => {
   return (
     <MainLayout rootStore={rootStore}>
       <ContentWrapper>
-        <DropZone {...getRootProps()} onClick={emptyFunction}>
-          {"Перенесите .XlSX-файл для его конвертации"}
-          <input {...getInputProps()} />
-        </DropZone>
+        <LaptopLAndAbove>
+          <DropZone {...getRootProps()} onClick={emptyFunction}>
+            {"Перенесите .XlSX-файл для его конвертации"}
+          </DropZone>
+        </LaptopLAndAbove>
         <MainContentWrapper>
           <Image src={homeImage} />
           <InfoWrapper>
@@ -44,6 +46,7 @@ export const HomePage = () => {
           </AttachButton>
         </MainContentWrapper>
       </ContentWrapper>
+      <input {...getInputProps()} />
     </MainLayout>
   );
 };

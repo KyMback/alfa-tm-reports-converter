@@ -17,6 +17,26 @@ export interface Theme {
   colors: Record<ColorType, string>;
 }
 
+export const devicesMaxSizes = {
+  mobileS: 320,
+  mobileM: 375,
+  mobileL: 425,
+  tablet: 768,
+  laptop: 1024,
+  laptopL: 1440,
+  desktop: 2560,
+} as const;
+
+export const devicesMinSizes = {
+  mobileS: 0,
+  mobileM: 321,
+  mobileL: 376,
+  tablet: 426,
+  laptop: 769,
+  laptopL: 1025,
+  desktop: 2561,
+} as const;
+
 export const defaultTheme: Theme = {
   font: "Gilroy",
   colors: {

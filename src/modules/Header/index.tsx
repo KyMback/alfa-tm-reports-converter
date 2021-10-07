@@ -4,6 +4,7 @@ import { useDropzone } from "react-dropzone";
 import { Reports } from "constants/reports";
 import { RootStore } from "stores/rootStore";
 import { observer } from "mobx-react-lite";
+import { LaptopAndAbove } from "components/mediaQuery/LaptopAndAbove";
 
 interface Props {
   rootStore: RootStore;
@@ -28,10 +29,10 @@ export const Header = observer(({ rootStore }: Props) => {
         <HeaderTitle>Alfa Converter</HeaderTitle>
       </HeaderTitleLink>
       {withReport ? (
-        <>
+        <LaptopAndAbove>
           <Button onClick={open}>{"Загрузить другой отчёт"}</Button>
           <input {...getInputProps()} />
-        </>
+        </LaptopAndAbove>
       ) : null}
     </HeaderWrapper>
   );
