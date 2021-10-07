@@ -24,7 +24,6 @@ export class DividendsStore {
 
   public setDividends = (dividends: Array<Dividend>) => {
     this.dividends = dividends;
-    this.selectedDividendIds = { 0: true };
   };
 
   public setSelectedDividendIds = (value: Record<number, boolean>) => {
