@@ -24,7 +24,7 @@ export const Header = observer(({ rootStore }: Props) => {
 
   return (
     <HeaderWrapper onlyTitle={!withReport}>
-      <HeaderTitleLink href="/">
+      <HeaderTitleLink href="./">
         <HeaderTitle>Alfa Converter</HeaderTitle>
       </HeaderTitleLink>
       {withReport ? (
