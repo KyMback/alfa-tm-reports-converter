@@ -1,8 +1,5 @@
 import { InternalConvertingService } from "services/internalConvertingService";
 import { AlfaReportParsingService } from "services/alfaReportParsingService";
-import { IntelinvestConvertingService } from "services/intelinvest/intelinvestConvertingService";
-import { toCsv } from "utils/csv";
-import fileDownload from "js-file-download";
 import {
   action,
   computed,
@@ -16,8 +13,6 @@ import { DividendsStore } from "stores/dividendsStore";
 export class RootStore {
   private readonly internalConvertingService = new InternalConvertingService();
   private readonly alfaReportParsingService = new AlfaReportParsingService();
-  private readonly intelinvestConvertingService =
-    new IntelinvestConvertingService();
 
   public readonly dividendsStore = new DividendsStore();
 
@@ -46,21 +41,5 @@ export class RootStore {
       this.parsingResult = result;
       this.dividendsStore.setDividends(dividends);
     });
-  };
-
-  public downloadIntelinvest = () => {
-    if (!this.reportParsed) {
-      return;
-    }
-
-    const items = this.intelinvestConvertingService.dividendsToCsvItems(
-      this.dividendsStore.selectedDividends,
-    );
-    const csv = toCsv(
-      this.intelinvestConvertingService.intelinvestCsvColumns,
-      items,
-      ";",
-    );
-    fileDownload(csv, `dividends.csv`);
   };
 }

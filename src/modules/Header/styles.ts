@@ -8,7 +8,7 @@ interface HeaderWrapperProps {
 export const HeaderWrapper = styled.header<HeaderWrapperProps>`
   display: flex;
   align-items: center;
-  z-index: 1000;
+  z-index: 100;
   box-shadow: 0 10px 30px ${themeColor("shadow")};
   padding: 16px 160px 16px 160px;
   justify-content: ${(props) => (props.onlyTitle ? "center" : "space-between")};

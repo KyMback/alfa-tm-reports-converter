@@ -4,13 +4,14 @@ import { useDropzone } from "react-dropzone";
 import { Reports } from "constants/reports";
 import { RootStore } from "stores/rootStore";
 import { observer } from "mobx-react-lite";
-import { LaptopAndAbove } from "components/mediaQuery/LaptopAndAbove";
+import { useLaptopOrAbove } from "hooks/mediaQuery";
 
 interface Props {
   rootStore: RootStore;
 }
 
 export const Header = observer(({ rootStore }: Props) => {
+  const isLaptopOrAbove = useLaptopOrAbove();
   const { getInputProps, open } = useDropzone({
     ...Reports.filesRestrictions,
     onDrop: async (files) => {
@@ -28,11 +29,11 @@ export const Header = observer(({ rootStore }: Props) => {
       <HeaderTitleLink href="./">
         <HeaderTitle>Alfa Converter</HeaderTitle>
       </HeaderTitleLink>
-      {withReport ? (
-        <LaptopAndAbove>
+      {withReport && isLaptopOrAbove ? (
+        <>
           <Button onClick={open}>{"Загрузить другой отчёт"}</Button>
           <input {...getInputProps()} />
-        </LaptopAndAbove>
+        </>
       ) : null}
     </HeaderWrapper>
   );
