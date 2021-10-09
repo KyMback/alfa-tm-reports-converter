@@ -15,7 +15,9 @@ export const MainLayout = observer(
       <MainLayoutWrapper>
         <Header rootStore={rootStore} />
         <ContentWrapper>{children}</ContentWrapper>
-        {rootStore.reportParsed ? <Footer rootStore={rootStore} /> : null}
+        {rootStore.reportParsed ? (
+          <Footer dividendsStore={rootStore.dividendsStore} />
+        ) : null}
       </MainLayoutWrapper>
     );
   },

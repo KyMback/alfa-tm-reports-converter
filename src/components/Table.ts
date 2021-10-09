@@ -21,13 +21,29 @@ export const TableHeadCell = styled.th`
 
 export const TableBody = styled.tbody``;
 
+export const TableDataCell = styled.td`
+  text-align: center;
+  padding: 10px 0;
+  border: none;
+
+  &:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
+  &:last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+`;
+
 export const TableRow = styled.tr`
   background: ${themeColor("secondary")};
 
   &:nth-child(2n) {
     background: none;
 
-    td {
+    ${TableDataCell} {
       border-top: 1px solid ${themeColor("onSurface")};
       border-bottom: 1px solid ${themeColor("onSurface")};
 
@@ -44,20 +60,4 @@ export const TableRow = styled.tr`
 
 export const TableHeadRow = styled(TableRow)`
   background: none;
-`;
-
-export const TableDataCell = styled.td`
-  text-align: center;
-  padding: 10px 0;
-  border: none;
-
-  &:first-child {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-  }
-
-  &:last-child {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-  }
 `;

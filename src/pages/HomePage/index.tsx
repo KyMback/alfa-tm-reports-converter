@@ -13,9 +13,10 @@ import { ImAttachment } from "react-icons/im";
 import { Reports } from "constants/reports";
 import { MainLayout } from "modules/layouts/MainLayout";
 import homeImage from "../../assets/images/home_image.png";
-import { LaptopLAndAbove } from "components/mediaQuery/LaptopLAndAbove";
+import { useLaptopOrAbove } from "hooks/mediaQuery";
 
 export const HomePage = () => {
+  const isLaptopOrAbove = useLaptopOrAbove();
   const rootStore = useRootStore();
   const { getInputProps, getRootProps, open } = useDropzone({
     ...Reports.filesRestrictions,
@@ -30,11 +31,11 @@ export const HomePage = () => {
   return (
     <MainLayout rootStore={rootStore}>
       <ContentWrapper>
-        <LaptopLAndAbove>
+        {isLaptopOrAbove ? (
           <DropZone {...getRootProps()} onClick={emptyFunction}>
             {"Перенесите .XlSX-файл для его конвертации"}
           </DropZone>
-        </LaptopLAndAbove>
+        ) : null}
         <MainContentWrapper>
           <Image src={homeImage} />
           <InfoWrapper>
