@@ -55,11 +55,15 @@ export const InfoWrapper = styled.div`
 export const Image = styled.img`
   width: 250px;
 
-  @media (${moreOrEqualTo.mobileL}) {
+  @media (${moreOrEqualTo.tablet}) {
     width: 380px;
   }
 
   @media (${moreOrEqualTo.laptop}) {
+    width: 460px;
+  }
+
+  @media (${moreOrEqualTo.laptopL}) {
     width: 520px;
   }
 `;

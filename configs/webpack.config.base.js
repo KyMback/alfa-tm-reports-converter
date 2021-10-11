@@ -1,8 +1,10 @@
 const { join, resolve } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const rootPath = join(__dirname, "..");
 const srcPath = join(rootPath, "src");
+const publicPath = join(rootPath, "public");
 
 module.exports = {
   entry: join(srcPath, "index.tsx"),
@@ -41,16 +43,26 @@ module.exports = {
       {
         test: /\.(png)$/i,
         type: "asset/resource",
+        generator: {
+          filename: "assets/images/[hash][ext][query]",
+        },
       },
       {
         test: /\.(woff|woff2|ttf)$/i,
         type: "asset/resource",
+        generator: {
+          filename: "assets/fonts/[hash][ext][query]",
+        },
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: join(rootPath, "public/index.html"),
+      template: join(publicPath, "index.html"),
+      favicon: join(publicPath, "favicon.png"),
+    }),
+    new CopyWebpackPlugin({
+      patterns: [join(publicPath, "manifest.json")],
     }),
   ],
 };
