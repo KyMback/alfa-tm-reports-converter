@@ -1,5 +1,5 @@
 import { DividendsTable } from "modules/DividendsTable";
-import { MainLayout } from "modules/layouts/MainLayout";
+import { MainLayout } from "modules/MainLayout";
 import { useRootStore } from "hooks/useRootStore";
 import { Tabs } from "components/Tabs";
 import { useState } from "react";

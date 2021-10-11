@@ -13,7 +13,7 @@ export const ContentWrapper = styled.div`
   display: flex;
   padding: 30px 160px;
 
-  @media (${lessOrEqualTo.tablet}) {
+  @media (${lessOrEqualTo.laptop}) {
     padding: 15px;
   }
 `;
