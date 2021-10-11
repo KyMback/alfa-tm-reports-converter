@@ -1,17 +1,43 @@
 import { createGlobalStyle } from "styled-components";
 import { themeColor } from "styles/helpers";
-import gilroyTtf from "../assets/fonts/Gilroy-Regular.ttf";
-import gilroyWoff from "../assets/fonts/Gilroy-Regular.woff";
-import gilroyWoff2 from "../assets/fonts/Gilroy-Regular.woff2";
+import gilroyRegularTtf from "../assets/fonts/Gilroy/Gilroy-Regular.ttf";
+import gilroyRegularWoff from "../assets/fonts/Gilroy/Gilroy-Regular.woff";
+import gilroyRegularWoff2 from "../assets/fonts/Gilroy/Gilroy-Regular.woff2";
+import gilroyMediumTtf from "../assets/fonts/Gilroy/Gilroy-Medium.ttf";
+import gilroyMediumWoff from "../assets/fonts/Gilroy/Gilroy-Medium.woff";
+import gilroyMediumWoff2 from "../assets/fonts/Gilroy/Gilroy-Medium.woff2";
+import gilroyBoldTtf from "../assets/fonts/Gilroy/Gilroy-Bold.ttf";
+import gilroyBoldWoff from "../assets/fonts/Gilroy/Gilroy-Bold.woff";
+import gilroyBoldWoff2 from "../assets/fonts/Gilroy/Gilroy-Bold.woff2";
 
 export const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'Gilroy';
     src: local('Gilroy Regular'), local('Gilroy-Regular'),
-    url(${gilroyWoff2}) format('woff2'),
-    url(${gilroyWoff}) format('woff'),
-    url(${gilroyTtf}) format('truetype');
-    font-weight: 400;
+    url(${gilroyRegularWoff2}) format('woff2'),
+    url(${gilroyRegularWoff}) format('woff'),
+    url(${gilroyRegularTtf}) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Gilroy';
+    src: local('Gilroy Medium'), local('Gilroy-Medium'),
+    url(${gilroyMediumWoff2}) format('woff2'),
+    url(${gilroyMediumWoff}) format('woff'),
+    url(${gilroyMediumTtf}) format('truetype');
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Gilroy';
+    src: local('Gilroy Bold'), local('Gilroy-Bold'),
+    url(${gilroyBoldWoff2}) format('woff2'),
+    url(${gilroyBoldWoff}) format('woff'),
+    url(${gilroyBoldTtf}) format('truetype');
+    font-weight: bold;
     font-style: normal;
   }
 
@@ -30,6 +56,7 @@ export const GlobalStyle = createGlobalStyle`
 
   * {
     font-family: ${(props) => props.theme.font};
+    font-weight: 500;
   }
 
   #root {

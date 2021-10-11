@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { themeColor } from "styles/helpers";
+import { lessOrEqualTo, themeColor } from "styles/helpers";
 
 export const TabsWrapper = styled.div`
   width: 100%;
@@ -20,13 +20,20 @@ export const Tab = styled.button`
 
 export const TabTitle = styled.div<{ active: boolean }>`
   padding: 14px 0;
-  font-size: 24px;
-  line-height: 28px;
+
   color: ${(props) =>
     props.active
       ? themeColor("primary")(props)
       : themeColor("onSurface")(props)};
-  font-weight: ${(props) => (props.active ? "bold" : "500")};
+
+  font-size: 24px;
+  line-height: 28px;
+
+  @media (${lessOrEqualTo.tablet}) {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  font-weight: ${(props) => (props.active ? "bold" : "inherit")};
 `;
 
 export const TabLine = styled.div<{ active: boolean }>`
