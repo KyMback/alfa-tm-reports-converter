@@ -11,7 +11,7 @@ import { useDropzone } from "react-dropzone";
 import { emptyFunction } from "utils/functions";
 import { ImAttachment } from "react-icons/im";
 import { Reports } from "constants/reports";
-import { MainLayout } from "modules/layouts/MainLayout";
+import { MainLayout } from "modules/MainLayout";
 import homeImage from "../../assets/images/home_image.png";
 import { useLaptopOrAbove } from "hooks/mediaQuery";
 

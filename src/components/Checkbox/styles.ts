@@ -1,16 +1,27 @@
 import styled from "styled-components";
-import { themeColor } from "styles/helpers";
+import { lessOrEqualTo, themeColor } from "styles/helpers";
 
 export const CheckboxWrapper = styled.span<{ checked: boolean }>`
+  position: relative;
+
   display: inline-flex;
   vertical-align: middle;
-  position: relative;
-  width: 1em;
-  height: 1em;
+
+  width: 22px;
+  height: 22px;
+
   border: 4px solid ${themeColor("primary")};
   border-radius: 5px;
+
   background: ${(props) =>
     props.checked ? themeColor("primary")(props) : "transparent"};
+
+  @media (${lessOrEqualTo.tablet}) {
+    border-width: 2px;
+
+    width: 21px;
+    height: 21px;
+  }
 `;
 
 export const CheckboxInput = styled.input`

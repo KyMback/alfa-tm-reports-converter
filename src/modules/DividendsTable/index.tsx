@@ -1,12 +1,7 @@
 /* eslint-disable react/jsx-key */
-import { Column, useRowSelect, useTable } from "react-table";
-import { format } from "date-fns";
-import { round } from "utils/math";
-import { Dividend } from "typings/internal";
+import { useRowSelect, useTable } from "react-table";
 import { observer } from "mobx-react-lite";
-import { Checkbox } from "components/Checkbox";
 import {
-  Table,
   TableBody,
   TableDataCell,
   TableHeadCell,
@@ -15,58 +10,20 @@ import {
   TableRow,
 } from "components/Table";
 import { DividendsStore } from "stores/dividendsStore";
-
-const columns: Array<Column<Dividend>> = [
-  {
-    id: "selection",
-    // @ts-ignore
-    // eslint-disable-next-line react/prop-types
-    Header: ({ getToggleAllRowsSelectedProps }) => (
-      <Checkbox {...getToggleAllRowsSelectedProps()} />
-    ),
-    // @ts-ignore
-    // eslint-disable-next-line react/prop-types
-    Cell: ({ row }) => <Checkbox {...row.getToggleRowSelectedProps()} />,
-  },
-  {
-    accessor: (originalRow) => format(originalRow.date, "dd.MM.yyyy"),
-    Header: "Дата",
-  },
-  {
-    accessor: "ticker",
-    Header: "Тикер",
-  },
-  {
-    accessor: "currency",
-    Header: "Валюта",
-  },
-  {
-    accessor: "count",
-    Header: "Количество",
-  },
-  {
-    accessor: "gross",
-    Header: "Прибыль",
-  },
-  {
-    accessor: ({ gross, count }) => round(gross / count, 2),
-    Header: "Прибыль на одну",
-  },
-  {
-    accessor: "tax",
-    Header: "Налог",
-  },
-];
+import { desktopColumns, mobileColumns } from "modules/DividendsTable/columns";
+import { useTabletOrBelow } from "hooks/mediaQuery";
+import { ResponsiveTable } from "modules/DividendsTable/styles";
 
 interface Props {
   dividendsStore: DividendsStore;
 }
 
 export const DividendsTable = observer(({ dividendsStore }: Props) => {
+  const isTabletOrBelow = useTabletOrBelow();
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
       {
-        columns,
+        columns: isTabletOrBelow ? mobileColumns : desktopColumns,
         data: dividendsStore.dividends,
         stateReducer: (newState, action) => {
           switch (action.type) {
@@ -83,7 +40,7 @@ export const DividendsTable = observer(({ dividendsStore }: Props) => {
     );
 
   return (
-    <Table {...getTableProps()}>
+    <ResponsiveTable {...getTableProps()}>
       <TableHeader>
         {headerGroups.map((headerGroup) => (
           <TableHeadRow {...headerGroup.getHeaderGroupProps()}>
@@ -111,6 +68,6 @@ export const DividendsTable = observer(({ dividendsStore }: Props) => {
           );
         })}
       </TableBody>
-    </Table>
+    </ResponsiveTable>
   );
 });

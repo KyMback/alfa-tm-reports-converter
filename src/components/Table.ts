@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { themeColor } from "styles/helpers";
+import { lessOrEqualTo, themeColor } from "styles/helpers";
 
 export const Table = styled.table`
   width: 100%;
@@ -12,14 +12,12 @@ export const Table = styled.table`
   border-collapse: separate;
 `;
 
-export const TableHeader = styled.thead``;
-
-export const TableHeadCell = styled.th`
-  padding: 20px 0;
-  border-bottom: 2px solid ${themeColor("onSurface")};
+export const TableBody = styled.tbody`
+  @media (${lessOrEqualTo.tablet}) {
+    font-size: 18px;
+    line-height: 22px;
+  }
 `;
-
-export const TableBody = styled.tbody``;
 
 export const TableDataCell = styled.td`
   text-align: center;
@@ -34,6 +32,20 @@ export const TableDataCell = styled.td`
   &:last-child {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+  }
+
+  @media (${lessOrEqualTo.tablet}) {
+    padding: 5px 0;
+
+    &:first-child {
+      text-align: start;
+      padding-left: 15px;
+    }
+
+    &:last-child {
+      text-align: end;
+      padding-right: 15px;
+    }
   }
 `;
 
@@ -58,6 +70,33 @@ export const TableRow = styled.tr`
   }
 `;
 
+export const TableHeader = styled.thead`
+  @media (${lessOrEqualTo.tablet}) {
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: bold;
+  }
+`;
+
 export const TableHeadRow = styled(TableRow)`
   background: none;
+`;
+
+export const TableHeadCell = styled.th`
+  padding: 20px 0;
+  border-bottom: 2px solid ${themeColor("onSurface")};
+
+  @media (${lessOrEqualTo.tablet}) {
+    padding: 10px 0;
+
+    &:first-child {
+      text-align: start;
+      padding-left: 15px;
+    }
+
+    &:last-child {
+      text-align: end;
+      padding-right: 15px;
+    }
+  }
 `;

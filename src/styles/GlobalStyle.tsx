@@ -52,9 +52,6 @@ export const GlobalStyle = createGlobalStyle`
     color: ${themeColor("onBackground")};
     background: ${themeColor("background")};
     overflow: hidden;
-  }
-
-  * {
     font-family: ${(props) => props.theme.font};
     font-weight: 500;
   }

@@ -28,12 +28,14 @@ export const TabTitle = styled.div<{ active: boolean }>`
 
   font-size: 24px;
   line-height: 28px;
+  font-weight: ${(props) => (props.active ? "bold" : "inherit")};
 
   @media (${lessOrEqualTo.tablet}) {
+    padding: 10px 0;
+
     font-size: 20px;
     line-height: 24px;
   }
-  font-weight: ${(props) => (props.active ? "bold" : "inherit")};
 `;
 
 export const TabLine = styled.div<{ active: boolean }>`

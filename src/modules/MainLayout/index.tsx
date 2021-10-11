@@ -1,4 +1,4 @@
-import { ContentWrapper, MainLayoutWrapper } from "modules/layouts/styles";
+import { ContentWrapper, MainLayoutWrapper } from "modules/MainLayout/styles";
 import { Header } from "modules/Header";
 import { Footer } from "modules/Footer";
 import { PropsWithChildren } from "react";
