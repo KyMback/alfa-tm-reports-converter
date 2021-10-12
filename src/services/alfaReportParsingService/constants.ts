@@ -1,3 +1,5 @@
+export const sheetName = "История сделок";
+
 export const dealsTitle = "1. Сделки с акциями";
 export const incomeOutgoings =
   "2. Поступление дивидендов/ иные зачисления и списания  из ДУ";
@@ -11,9 +13,6 @@ export const partsTitles = [
   incomeOutgoings,
   depositsWithdrawals,
 ] as const;
-export const partsAndSubParts = [...partsTitles, incomeTitle, outgoingsTitle];
-
-export const skipTitleAndHeader = 2;
 
 export const supportedIncomeTypes = ["Дивиденды"];
 export const supportedOutgoingsTypes = [
