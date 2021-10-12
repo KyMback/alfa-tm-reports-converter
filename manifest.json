@@ -1,6 +1,6 @@
 {
-  "name": "Alfa report converter",
-  "short_name": "Alfa Converter",
+  "name": "AlfaTM Converter",
+  "short_name": "AlfaTM Converter",
   "display": "standalone",
   "start_url": ".",
   "background_color": "#FFFFFF",
