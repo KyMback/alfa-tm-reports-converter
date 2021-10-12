@@ -37,9 +37,11 @@ export const HomePage = () => {
           </DropZone>
         ) : null}
         <MainContentWrapper>
-          <Image src={homeImage} />
+          <Image src={homeImage} alt="Лейбл сайта" />
           <InfoWrapper>
-            {`Здесь Вы можете конвертировать отчеты доверительного управления Аlfa-банка в удобный Вам формат (IntelInvest).`}
+            {
+              "Здесь Вы можете конвертировать отчеты доверительного управления Альфа-Банка в удобный вам формат."
+            }
           </InfoWrapper>
           <AttachButton onClick={open}>
             <ImAttachment />
