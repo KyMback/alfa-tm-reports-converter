@@ -9,15 +9,14 @@ export const parseDepositsWithdrawals = (
   maxIndex: number,
 ): {
   depositsWithdrawals: Array<DepositsWithdrawals>;
-  newIndex: number;
+  parsedRows: number;
 } => {
   if (getTitle(sheet, index) !== depositsWithdrawals) {
     throw new Error("Incorrect format");
   }
 
-  const newIndex = index + skipTitleAndHeader;
   return {
     depositsWithdrawals: [],
-    newIndex: newIndex >= maxIndex ? maxIndex : newIndex,
+    parsedRows: skipTitleAndHeader,
   };
 };

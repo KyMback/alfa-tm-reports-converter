@@ -1,11 +1,10 @@
 import { WorkSheet } from "xlsx";
 import {
-  getCell,
+  generateRows,
   getTitle,
-  isPartOrSubpart,
-  parseDate,
-  parseNumber,
-  parseString,
+  parseCellDate,
+  parseCellNumber,
+  parseCellString,
 } from "../../utils";
 import {
   incomeTitle,
@@ -16,44 +15,58 @@ import { IncomeParsingResult } from "typings/parsing";
 
 export const parseIncome = (
   sheet: WorkSheet,
-  index: number,
+  startIndex: number,
   maxIndex: number,
-): { incomes: Array<IncomeParsingResult>; newIndex: number } => {
-  if (getTitle(sheet, index) !== incomeTitle) {
+): { incomes: Array<IncomeParsingResult>; parsedRows: number } => {
+  if (getTitle(sheet, startIndex) !== incomeTitle) {
     throw new Error("Incorrect format");
   }
 
-  let curIndex = index + skipTitleAndHeader;
-
   const income: Array<IncomeParsingResult> = [];
-  for (; curIndex < maxIndex; curIndex++) {
-    if (isPartOrSubpart(sheet, curIndex)) {
-      return {
-        incomes: income,
-        newIndex: curIndex,
-      };
+  const rows = generateRows(sheet, maxIndex, startIndex + skipTitleAndHeader);
+  let parsedRows = skipTitleAndHeader;
+  for (const row of rows) {
+    parsedRows++;
+
+    const typeCell = row.B;
+    if (!typeCell) {
+      break;
     }
 
-    const type = String(getCell(sheet, "B", curIndex).v);
-    if (!supportedIncomeTypes.includes(type)) {
+    if (!supportedIncomeTypes.includes(String(typeCell.v))) {
       // TODO: currently do not support other incomes
       continue;
     }
 
+    if (
+      !row.A ||
+      !row.C ||
+      !row.D ||
+      !row.E ||
+      !row.F ||
+      !row.G ||
+      !row.H ||
+      !row.I
+    ) {
+      throw new Error(
+        `Missed required cells for income in row with index: ${row.index}`,
+      );
+    }
+
     income.push({
-      date: parseDate(sheet, "A", curIndex),
-      incomeForOne: parseNumber(sheet, "C", curIndex),
-      currency: parseString(sheet, "D", curIndex),
-      count: parseNumber(sheet, "E", curIndex),
-      instrument: parseString(sheet, "F", curIndex),
-      ticker: parseString(sheet, "G", curIndex),
-      isin: parseString(sheet, "H", curIndex),
-      gross: parseNumber(sheet, "I", curIndex),
+      date: parseCellDate(row.A),
+      incomeForOne: parseCellNumber(row.C),
+      currency: parseCellString(row.D),
+      count: parseCellNumber(row.E),
+      instrument: parseCellString(row.F),
+      ticker: parseCellString(row.G),
+      isin: parseCellString(row.H),
+      gross: parseCellNumber(row.I),
     });
   }
 
   return {
     incomes: income,
-    newIndex: curIndex,
+    parsedRows: parsedRows - 1,
   };
 };

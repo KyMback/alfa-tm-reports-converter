@@ -1,6 +1,6 @@
 import { WorkSheet } from "xlsx";
 import { getTitle } from "../../utils";
-import { incomeOutgoings } from "../../constants";
+import { incomeOutgoings, outgoingsTitle } from "../../constants";
 import { parseOutgoings } from "./outgoings";
 import { parseIncome } from "./incomes";
 import { IncomeParsingResult, OutgoingsParsingResult } from "typings/parsing";
@@ -12,22 +12,47 @@ export const parseIncomeOutgoings = (
 ): {
   incomes: Array<IncomeParsingResult>;
   outgoings: Array<OutgoingsParsingResult>;
-  newIndex: number;
+  parsedRows: number;
 } => {
   if (getTitle(sheet, index) !== incomeOutgoings) {
     throw new Error("Incorrect format");
   }
+  const parsedTitleRows = 1;
 
-  const incomeResult = parseIncome(sheet, index + 1, maxIndex);
-  const outgoingsResult = parseOutgoings(
+  const incomeTitleIndex = index + parsedTitleRows;
+  const incomeResult = parseIncome(sheet, incomeTitleIndex, maxIndex);
+  const outgoingsStartIndex = getOutgoingsStartIndex(
     sheet,
-    incomeResult.newIndex,
+    incomeTitleIndex + incomeResult.parsedRows,
     maxIndex,
   );
+
+  if (!outgoingsStartIndex) {
+    return {
+      incomes: incomeResult.incomes,
+      outgoings: [],
+      parsedRows: incomeResult.parsedRows + parsedTitleRows,
+    };
+  }
+
+  const outgoingsResult = parseOutgoings(sheet, outgoingsStartIndex, maxIndex);
 
   return {
     incomes: incomeResult.incomes,
     outgoings: outgoingsResult.outgoings,
-    newIndex: outgoingsResult.newIndex,
+    parsedRows:
+      incomeResult.parsedRows + outgoingsResult.parsedRows + parsedTitleRows,
   };
+};
+
+const getOutgoingsStartIndex = (
+  sheet: WorkSheet,
+  startIndex: number,
+  maxIndex: number,
+) => {
+  for (let i = startIndex; i < maxIndex; i++) {
+    if (getTitle(sheet, i) === outgoingsTitle) {
+      return i;
+    }
+  }
 };

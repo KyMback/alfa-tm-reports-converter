@@ -7,15 +7,14 @@ export const parseDeals = (
   sheet: WorkSheet,
   index: number,
   maxIndex: number,
-): { deals: Array<DealItemParsingResult>; newIndex: number } => {
+): { deals: Array<DealItemParsingResult>; parsedRows: number } => {
   if (getTitle(sheet, index) !== dealsTitle) {
     throw new Error("Incorrect format");
   }
   // TODO: skip now
 
-  const newIndex = index + skipTitleAndHeader;
   return {
     deals: [],
-    newIndex: newIndex >= maxIndex ? maxIndex : newIndex,
+    parsedRows: skipTitleAndHeader,
   };
 };

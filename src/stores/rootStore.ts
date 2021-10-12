@@ -31,15 +31,18 @@ export class RootStore {
   }
 
   public parseReport = async (report: File) => {
-    const result = await this.alfaReportParsingService.parse(report);
-    const dividends = this.internalConvertingService.getDividends(
-      result.incomes,
-      result.outgoings,
-    );
-
-    runInAction(() => {
-      this.parsingResult = result;
-      this.dividendsStore.setDividends(dividends);
-    });
+    try {
+      const result = await this.alfaReportParsingService.parse(report);
+      const dividends = this.internalConvertingService.getDividends(
+        result.incomes,
+        result.outgoings,
+      );
+      runInAction(() => {
+        this.parsingResult = result;
+        this.dividendsStore.setDividends(dividends);
+      });
+    } catch (e) {
+      console.error(e);
+    }
   };
 }

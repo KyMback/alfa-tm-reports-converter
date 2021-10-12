@@ -1,11 +1,10 @@
 import { WorkSheet } from "xlsx";
 import {
-  getCell,
+  generateRows,
   getTitle,
-  isPartOrSubpart,
-  parseDate,
-  parseNumber,
-  parseString,
+  parseCellDate,
+  parseCellNumber,
+  parseCellString,
 } from "../../utils";
 import {
   outgoingsTitle,
@@ -18,51 +17,61 @@ const typeRegexp = /.+акциям (.+) (\d+\.00)/;
 
 export const parseOutgoings = (
   sheet: WorkSheet,
-  index: number,
+  startIndex: number,
   maxIndex: number,
-): { outgoings: Array<OutgoingsParsingResult>; newIndex: number } => {
-  if (getTitle(sheet, index) !== outgoingsTitle) {
+): { outgoings: Array<OutgoingsParsingResult>; parsedRows: number } => {
+  if (getTitle(sheet, startIndex) !== outgoingsTitle) {
     throw new Error("Incorrect format");
   }
 
-  let curIndex = index + skipTitleAndHeader;
-
   const outgoings: Array<OutgoingsParsingResult> = [];
-  for (; curIndex < maxIndex; curIndex++) {
-    if (isPartOrSubpart(sheet, curIndex)) {
-      return {
-        outgoings: outgoings,
-        newIndex: curIndex,
-      };
+  const rows = generateRows(sheet, maxIndex, startIndex + skipTitleAndHeader);
+  let parsedRows = skipTitleAndHeader;
+
+  for (const row of rows) {
+    parsedRows++;
+
+    const typeCell = row.B;
+    if (!typeCell) {
+      break;
     }
 
-    const type = String(getCell(sheet, "B", curIndex).v);
+    const type = String(typeCell.v);
 
     if (
       !supportedOutgoingsTypes.find((supported) => type.includes(supported))
     ) {
-      // TODO: currently do not support other outgoings
+      // TODO: currently do not support other incomes
       continue;
     }
 
-    const instrumentAndCount = typeRegexp.exec(type);
-    if (instrumentAndCount == null) {
-      throw new Error(`Can't parse cell B${curIndex}`);
+    if (!row.A || !row.I || !row.J) {
+      throw new Error(
+        `Missed required cells for outgoings in row with index: ${row.index}`,
+      );
     }
-    const instrument = instrumentAndCount[1];
-    const count = Number(instrumentAndCount[2]);
 
     outgoings.push({
-      date: parseDate(sheet, "A", curIndex),
-      instrument,
-      count,
-      sum: parseNumber(sheet, "I", curIndex),
-      currency: parseString(sheet, "J", curIndex),
+      ...parseInstrumentAndCount(type, row.index),
+      date: parseCellDate(row.A),
+      sum: parseCellNumber(row.I),
+      currency: parseCellString(row.J),
     });
   }
 
   return {
-    outgoings: [],
-    newIndex: curIndex,
+    outgoings: outgoings,
+    parsedRows: parsedRows - 1,
   };
+};
+
+const parseInstrumentAndCount = (type: string, rowIndex: number) => {
+  const instrumentAndCount = typeRegexp.exec(type);
+  if (instrumentAndCount == null) {
+    throw new Error(`Can't parse cell B${rowIndex}`);
+  }
+  const instrument = instrumentAndCount[1];
+  const count = Number(instrumentAndCount[2]);
+
+  return { instrument, count };
 };

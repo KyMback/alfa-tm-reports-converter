@@ -1,4 +1,4 @@
-import { read } from "xlsx";
+import { read, Sheet } from "xlsx";
 import { getTitle } from "./utils";
 import { dealsTitle, depositsWithdrawals, incomeOutgoings } from "./constants";
 import { parseIncomeOutgoings } from "./parts/incomeOutgoings";
@@ -12,19 +12,13 @@ export class AlfaReportParsingService {
   public parse = async (report: File): Promise<ParseResult> => {
     const buffer = await report.arrayBuffer();
     const book = read(buffer, { type: "array" });
+
     if (book.SheetNames[0] !== "История сделок") {
       throw new Error("Incorrect file format");
     }
 
     const sheet = book.Sheets[book.SheetNames[0]];
-
-    const ref = sheet["!ref"];
-
-    if (!ref) {
-      throw new Error("Incorrect file format");
-    }
-
-    const maxIndex = Number(maxRowIndexRegexp.exec(ref)![0]);
+    const rowsCount = getRowsCount(sheet);
 
     const result: ParseResult = {
       deals: [],
@@ -33,19 +27,19 @@ export class AlfaReportParsingService {
       depositsWithdrawals: [],
     };
 
-    for (let index = 5; index < maxIndex; index++) {
+    for (let index = 5; index < rowsCount; index++) {
       const title = getTitle(sheet, index);
 
       switch (title) {
         case dealsTitle: {
-          const dealsResult = parseDeals(sheet, index, maxIndex);
-          index = dealsResult.newIndex - 1;
+          const dealsResult = parseDeals(sheet, index, rowsCount);
+          index += dealsResult.parsedRows;
           result.deals = dealsResult.deals;
           break;
         }
         case incomeOutgoings: {
-          const incomeOutgoings = parseIncomeOutgoings(sheet, index, maxIndex);
-          index = incomeOutgoings.newIndex - 1;
+          const incomeOutgoings = parseIncomeOutgoings(sheet, index, rowsCount);
+          index += incomeOutgoings.parsedRows;
           result.incomes = incomeOutgoings.incomes;
           result.outgoings = incomeOutgoings.outgoings;
           break;
@@ -54,9 +48,9 @@ export class AlfaReportParsingService {
           const incomeOutgoings = parseDepositsWithdrawals(
             sheet,
             index,
-            maxIndex,
+            rowsCount,
           );
-          index = incomeOutgoings.newIndex - 1;
+          index += incomeOutgoings.parsedRows;
           result.depositsWithdrawals = incomeOutgoings.depositsWithdrawals;
           break;
         }
@@ -66,3 +60,13 @@ export class AlfaReportParsingService {
     return result;
   };
 }
+
+const getRowsCount = (sheet: Sheet) => {
+  const ref = sheet["!ref"];
+
+  if (!ref) {
+    throw new Error("Incorrect file format");
+  }
+
+  return Number(maxRowIndexRegexp.exec(ref)![0]);
+};

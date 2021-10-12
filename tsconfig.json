@@ -9,6 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "rootDir": "./",
     "baseUrl": "./src",
+    "downlevelIteration": true,
     "paths": {
       "typings/*": ["typings/*"],
       "utils/*": ["utils/*"],
