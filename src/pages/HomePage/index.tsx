@@ -12,7 +12,6 @@ import { useDropzone } from "react-dropzone";
 import { emptyFunction } from "utils/functions";
 import { ImAttachment } from "react-icons/im";
 import { Reports } from "constants/reports";
-import { MainLayout } from "modules/MainLayout";
 import homeImage from "../../../assets/images/home_image.png";
 import { useLaptopOrAbove } from "hooks/mediaQuery";
 import { General } from "constants/general";
@@ -31,7 +30,7 @@ export const HomePage = () => {
   });
 
   return (
-    <MainLayout>
+    <>
       <ContentWrapper>
         {isLaptopOrAbove ? (
           <DropZone {...getRootProps()} onClick={emptyFunction}>
@@ -55,6 +54,6 @@ export const HomePage = () => {
         </MainContentWrapper>
       </ContentWrapper>
       <input {...getInputProps()} />
-    </MainLayout>
+    </>
   );
 };

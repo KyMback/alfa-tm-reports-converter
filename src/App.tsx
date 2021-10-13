@@ -6,6 +6,8 @@ import { defaultTheme } from "styles/themes";
 import { GlobalStyle } from "styles/GlobalStyle";
 import { HomePage } from "pages/HomePage";
 import { ReportInfoPage } from "pages/ReportInfoPage";
+import { NotificationsContainer } from "modules/NotificationsContainer";
+import { MainLayout } from "modules/MainLayout";
 
 const rootStore = new RootStore();
 
@@ -14,9 +16,12 @@ export const App = () => {
     <RootStoreContext.Provider value={rootStore}>
       <ThemeProvider theme={defaultTheme}>
         <GlobalStyle />
-        <Observer>
-          {() => (rootStore.reportParsed ? <ReportInfoPage /> : <HomePage />)}
-        </Observer>
+        <MainLayout>
+          <Observer>
+            {() => (rootStore.reportParsed ? <ReportInfoPage /> : <HomePage />)}
+          </Observer>
+        </MainLayout>
+        <NotificationsContainer />
       </ThemeProvider>
     </RootStoreContext.Provider>
   );

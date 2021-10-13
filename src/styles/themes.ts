@@ -9,6 +9,10 @@ const colorTypes = [
   "onSurface",
   "shadow",
   "overlay",
+  "error",
+  "onError",
+  "success",
+  "onSuccess",
 ] as const;
 
 export type ColorType = typeof colorTypes[number];
@@ -51,5 +55,9 @@ export const defaultTheme: Theme = {
     onSurface: "#434343",
     shadow: "rgba(0, 0, 0, 0.25)",
     overlay: "rgba(0, 0, 0, 0.7)",
+    error: "#BC0202",
+    onError: "#FFFFFF",
+    success: "#83E8BA",
+    onSuccess: "#2A6F97",
   },
 };
