@@ -6,7 +6,7 @@ import {
 import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { FormatsWrapper, MobileFooterButton } from "./styles";
-import { Button } from "components/Button";
+import { Button } from "components/buttons";
 import { useRootStore } from "hooks/useRootStore";
 
 export const MobileFooter = observer(() => {

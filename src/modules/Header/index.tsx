@@ -1,5 +1,5 @@
 import { HeaderTitle, HeaderTitleLink, HeaderWrapper } from "./styles";
-import { Button } from "components/Button";
+import { Button } from "components/buttons";
 import { useDropzone } from "react-dropzone";
 import { Reports } from "constants/reports";
 import { observer } from "mobx-react-lite";

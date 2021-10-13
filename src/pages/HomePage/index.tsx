@@ -6,6 +6,7 @@ import {
   Image,
   InfoWrapper,
   MainContentWrapper,
+  MoreInfoButton,
 } from "pages/HomePage/styles";
 import { useDropzone } from "react-dropzone";
 import { emptyFunction } from "utils/functions";
@@ -14,6 +15,7 @@ import { Reports } from "constants/reports";
 import { MainLayout } from "modules/MainLayout";
 import homeImage from "../../../assets/images/home_image.png";
 import { useLaptopOrAbove } from "hooks/mediaQuery";
+import { General } from "constants/general";
 
 export const HomePage = () => {
   const isLaptopOrAbove = useLaptopOrAbove();
@@ -43,6 +45,9 @@ export const HomePage = () => {
               "Здесь Вы можете конвертировать отчеты доверительного управления Альфа-Банка в удобный вам формат."
             }
           </InfoWrapper>
+          <MoreInfoButton onClick={() => window.open(General.repositoryPath)}>
+            {"О приложении"}
+          </MoreInfoButton>
           <AttachButton onClick={open}>
             <ImAttachment />
             {"Прикрепить файл"}

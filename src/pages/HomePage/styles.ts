@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { moreOrEqualTo, themeColor } from "styles/helpers";
-import { Button } from "components/Button";
+import { Button, OutlineButton } from "components/buttons";
 
 export const ContentWrapper = styled.div`
   display: flex;
@@ -65,6 +65,17 @@ export const Image = styled.img`
 
   @media (${moreOrEqualTo.laptopL}) {
     width: 520px;
+  }
+`;
+
+export const MoreInfoButton = styled(OutlineButton)`
+  width: 100%;
+
+  margin-bottom: 10px;
+
+  @media (${moreOrEqualTo.laptop}) {
+    font-size: 24px;
+    line-height: 29px;
   }
 `;
 

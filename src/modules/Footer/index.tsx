@@ -3,7 +3,7 @@ import {
   FooterWrapper,
   Text,
 } from "modules/Footer/styles";
-import { Button } from "components/Button";
+import { Button } from "components/buttons";
 import { useTabletOrBelow } from "hooks/mediaQuery";
 import { MobileFooter } from "modules/Footer/MobileFooter";
 import { useRootStore } from "hooks/useRootStore";
