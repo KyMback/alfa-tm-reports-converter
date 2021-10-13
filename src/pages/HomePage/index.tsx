@@ -12,7 +12,7 @@ import { emptyFunction } from "utils/functions";
 import { ImAttachment } from "react-icons/im";
 import { Reports } from "constants/reports";
 import { MainLayout } from "modules/MainLayout";
-import homeImage from "../../assets/images/home_image.png";
+import homeImage from "../../../assets/images/home_image.png";
 import { useLaptopOrAbove } from "hooks/mediaQuery";
 
 export const HomePage = () => {
@@ -29,7 +29,7 @@ export const HomePage = () => {
   });
 
   return (
-    <MainLayout rootStore={rootStore}>
+    <MainLayout>
       <ContentWrapper>
         {isLaptopOrAbove ? (
           <DropZone {...getRootProps()} onClick={emptyFunction}>

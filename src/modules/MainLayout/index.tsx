@@ -2,23 +2,17 @@ import { ContentWrapper, MainLayoutWrapper } from "modules/MainLayout/styles";
 import { Header } from "modules/Header";
 import { Footer } from "modules/Footer";
 import { PropsWithChildren } from "react";
-import { RootStore } from "stores/rootStore";
 import { observer } from "mobx-react-lite";
+import { useRootStore } from "hooks/useRootStore";
 
-interface Props {
-  rootStore: RootStore;
-}
+export const MainLayout = observer(({ children }: PropsWithChildren<{}>) => {
+  const rootStore = useRootStore();
 
-export const MainLayout = observer(
-  ({ children, rootStore }: PropsWithChildren<Props>) => {
-    return (
-      <MainLayoutWrapper>
-        <Header rootStore={rootStore} />
-        <ContentWrapper>{children}</ContentWrapper>
-        {rootStore.reportParsed ? (
-          <Footer dividendsStore={rootStore.dividendsStore} />
-        ) : null}
-      </MainLayoutWrapper>
-    );
-  },
-);
+  return (
+    <MainLayoutWrapper>
+      <Header />
+      <ContentWrapper>{children}</ContentWrapper>
+      {rootStore.reportParsed ? <Footer /> : null}
+    </MainLayoutWrapper>
+  );
+});

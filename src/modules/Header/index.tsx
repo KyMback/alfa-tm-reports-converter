@@ -2,15 +2,12 @@ import { HeaderTitle, HeaderTitleLink, HeaderWrapper } from "./styles";
 import { Button } from "components/Button";
 import { useDropzone } from "react-dropzone";
 import { Reports } from "constants/reports";
-import { RootStore } from "stores/rootStore";
 import { observer } from "mobx-react-lite";
 import { useLaptopOrAbove } from "hooks/mediaQuery";
+import { useRootStore } from "hooks/useRootStore";
 
-interface Props {
-  rootStore: RootStore;
-}
-
-export const Header = observer(({ rootStore }: Props) => {
+export const Header = observer(() => {
+  const rootStore = useRootStore();
   const isLaptopOrAbove = useLaptopOrAbove();
   const { getInputProps, open } = useDropzone({
     ...Reports.filesRestrictions,

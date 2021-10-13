@@ -1,13 +1,8 @@
 import { action, computed, makeObservable, observable } from "mobx";
 import { Dividend } from "typings/internal";
-import { toCsv } from "utils/csv";
-import fileDownload from "js-file-download";
-import { IntelinvestConvertingService } from "services/intelinvest/intelinvestConvertingService";
+import { sortByDesc } from "utils/array";
 
 export class DividendsStore {
-  private readonly intelinvestConvertingService =
-    new IntelinvestConvertingService();
-
   public dividends: Array<Dividend> = [];
 
   public selectedDividendIds: Record<number, boolean> = {};
@@ -29,22 +24,11 @@ export class DividendsStore {
   }
 
   public setDividends = (dividends: Array<Dividend>) => {
-    this.dividends = dividends;
+    this.dividends = sortByDesc(dividends, (item) => item.date);
+    this.selectedDividendIds = {};
   };
 
   public setSelectedDividendIds = (value: Record<number, boolean>) => {
     this.selectedDividendIds = value;
-  };
-
-  public downloadIntelinvest = () => {
-    const items = this.intelinvestConvertingService.dividendsToCsvItems(
-      this.selectedDividends,
-    );
-    const csv = toCsv(
-      this.intelinvestConvertingService.intelinvestCsvColumns,
-      items,
-      ";",
-    );
-    fileDownload(csv, `dividends.csv`);
   };
 }

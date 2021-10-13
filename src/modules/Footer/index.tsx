@@ -6,22 +6,19 @@ import {
 import { Button } from "components/Button";
 import { useTabletOrBelow } from "hooks/mediaQuery";
 import { MobileFooter } from "modules/Footer/MobileFooter";
-import { DividendsStore } from "stores/dividendsStore";
+import { useRootStore } from "hooks/useRootStore";
 
-interface Props {
-  dividendsStore: DividendsStore;
-}
-
-export const Footer = ({ dividendsStore }: Props) => {
+export const Footer = () => {
+  const rootStore = useRootStore();
   const isTabletOrBelow = useTabletOrBelow();
 
   return isTabletOrBelow ? (
-    <MobileFooter dividendsStore={dividendsStore} />
+    <MobileFooter />
   ) : (
     <FooterWrapper>
       <DownloadFormatsWrapper>
         <Text>{"Выберите формат для скачивания:"}</Text>
-        <Button onClick={dividendsStore.downloadIntelinvest}>
+        <Button onClick={rootStore.downloadIntelinvest}>
           {".IntelInvest"}
         </Button>
       </DownloadFormatsWrapper>

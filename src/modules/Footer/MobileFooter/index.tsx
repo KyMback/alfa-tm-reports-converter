@@ -7,13 +7,10 @@ import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { FormatsWrapper, MobileFooterButton } from "./styles";
 import { Button } from "components/Button";
-import { DividendsStore } from "stores/dividendsStore";
+import { useRootStore } from "hooks/useRootStore";
 
-interface Props {
-  dividendsStore: DividendsStore;
-}
-
-export const MobileFooter = observer(({ dividendsStore }: Props) => {
+export const MobileFooter = observer(() => {
+  const rootStore = useRootStore();
   const [reactiveModalStore] = useState(
     new BaseReactiveModalStore<string>("Выберите формат для скачивания:"),
   );
@@ -25,7 +22,7 @@ export const MobileFooter = observer(({ dividendsStore }: Props) => {
         <FormatsWrapper>
           <Button
             onClick={() => {
-              dividendsStore.downloadIntelinvest();
+              rootStore.downloadIntelinvest();
               reactiveModalStore.close();
             }}
           >

@@ -9,16 +9,13 @@ import {
   TableHeadRow,
   TableRow,
 } from "components/Table";
-import { DividendsStore } from "stores/dividendsStore";
 import { desktopColumns, mobileColumns } from "modules/DividendsTable/columns";
 import { useTabletOrBelow } from "hooks/mediaQuery";
 import { ResponsiveTable } from "modules/DividendsTable/styles";
+import { useRootStore } from "hooks/useRootStore";
 
-interface Props {
-  dividendsStore: DividendsStore;
-}
-
-export const DividendsTable = observer(({ dividendsStore }: Props) => {
+export const DividendsTable = observer(() => {
+  const { dividendsStore } = useRootStore();
   const isTabletOrBelow = useTabletOrBelow();
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
