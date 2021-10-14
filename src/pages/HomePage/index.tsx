@@ -12,7 +12,7 @@ import { useDropzone } from "react-dropzone";
 import { emptyFunction } from "utils/functions";
 import { ImAttachment } from "react-icons/im";
 import { Reports } from "constants/reports";
-import homeImage from "../../../assets/images/home_image.png";
+import homeImage from "../../../assets/images/home_image.svg";
 import { useLaptopOrAbove } from "hooks/mediaQuery";
 import { General } from "constants/general";
 
@@ -34,14 +34,14 @@ export const HomePage = () => {
       <ContentWrapper>
         {isLaptopOrAbove ? (
           <DropZone {...getRootProps()} onClick={emptyFunction}>
-            {"Перенесите .XlSX-файл для его конвертации"}
+            {"Перенесите .XLSX-файл для его конвертации"}
           </DropZone>
         ) : null}
         <MainContentWrapper>
           <Image src={homeImage} alt="Лейбл сайта" />
           <InfoWrapper>
             {
-              "Здесь Вы можете конвертировать отчеты доверительного управления Альфа-Банка в удобный вам формат."
+              "Здесь Вы можете конвертировать отчёты доверительного управления Альфа-Банка Беларуси в удобный вам формат."
             }
           </InfoWrapper>
           <MoreInfoButton onClick={() => window.open(General.repositoryPath)}>

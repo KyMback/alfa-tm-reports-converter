@@ -16,6 +16,8 @@ export const DropZone = styled.div`
   justify-content: center;
   text-align: center;
 
+  padding: 5px;
+
   background: ${themeColor("secondary")};
   color: ${themeColor("primary")};
   border: 5px solid ${themeColor("primary")};

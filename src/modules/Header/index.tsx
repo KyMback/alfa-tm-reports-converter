@@ -24,7 +24,7 @@ export const Header = observer(() => {
   return (
     <HeaderWrapper onlyTitle={!withReport}>
       <HeaderTitleLink href="./">
-        <HeaderTitle>Alfa Converter</HeaderTitle>
+        <HeaderTitle>AlfaTM Converter</HeaderTitle>
       </HeaderTitleLink>
       {withReport && isLaptopOrAbove ? (
         <>

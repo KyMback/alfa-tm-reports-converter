@@ -5,11 +5,12 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const rootPath = join(__dirname, "..");
 const srcPath = join(rootPath, "src");
 const publicPath = join(rootPath, "public");
+const distPath = join(rootPath, "dist");
 
 module.exports = {
   entry: join(srcPath, "index.tsx"),
   output: {
-    path: join(rootPath, "dist"),
+    path: distPath,
     clean: true,
   },
   resolve: {
@@ -41,7 +42,7 @@ module.exports = {
         },
       },
       {
-        test: /\.(png)$/i,
+        test: /\.(png|svg)$/i,
         type: "asset/resource",
         generator: {
           filename: "assets/images/[hash][ext][query]",
@@ -59,10 +60,17 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: join(publicPath, "index.html"),
-      favicon: join(publicPath, "favicon.png"),
     }),
     new CopyWebpackPlugin({
-      patterns: [join(publicPath, "manifest.json")],
+      patterns: [
+        {
+          from: join(publicPath, "**/*"),
+          to: join(distPath, "[name][ext]"),
+          globOptions: {
+            ignore: [join(publicPath, "index.html")],
+          },
+        },
+      ],
     }),
   ],
 };
