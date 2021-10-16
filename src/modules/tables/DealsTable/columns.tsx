@@ -1,14 +1,14 @@
 import { Column } from "react-table";
-import { Dividend } from "typings/internal";
+import { Deal } from "typings/internal";
 import { Checkbox } from "components/Checkbox";
-import { format } from "date-fns";
-import { round } from "utils/math";
-import { MobileInstrumentCell } from "./MobileInstrumentCell";
+import { MobileInstrumentCell } from "modules/tables/MobileInstrumentCell";
+import { DealTypeCell } from "modules/tables/DealsTable/DealTypeCell";
+import { DateCell } from "components/Table/DateCell";
+import { NumberCell } from "components/Table/NumberCell";
 
-export const desktopColumns: Array<Column<Dividend>> = [
+export const desktopColumns: Array<Column<Deal>> = [
   {
     id: "selection",
-    // @ts-ignore
     // eslint-disable-next-line react/prop-types
     Header: ({ getToggleAllRowsSelectedProps }) => (
       <Checkbox {...getToggleAllRowsSelectedProps()} />
@@ -19,50 +19,51 @@ export const desktopColumns: Array<Column<Dividend>> = [
   },
   {
     Header: "Дата",
-    accessor: (originalRow) => format(originalRow.date, "dd.MM.yyyy"),
+    accessor: DateCell,
   },
   {
     Header: "Тикер",
     accessor: "ticker",
   },
   {
-    Header: "Валюта",
-    accessor: "currency",
+    Header: "Тип",
+    accessor: DealTypeCell,
   },
   {
     Header: "Количество",
     accessor: "count",
   },
   {
-    Header: "Прибыль",
-    accessor: "gross",
+    Header: "Сумма",
+    accessor: ({ sum }) => <NumberCell number={sum} />,
   },
   {
-    Header: "Прибыль на одну",
-    accessor: ({ gross, count }) => round(gross / count, 2),
-  },
-  {
-    Header: "Налог",
-    accessor: "tax",
+    Header: "Валюта",
+    accessor: "sumCurrency",
   },
 ];
 
-export const mobileColumns: Array<Column<Dividend>> = [
+export const mobileColumns: Array<Column<Deal>> = [
   {
     Header: "Инструмент",
-    accessor: (item) => <MobileInstrumentCell dividend={item} />,
+    accessor: ({ ticker, sumCurrency, date }) => (
+      <MobileInstrumentCell
+        ticker={ticker}
+        currency={sumCurrency}
+        date={date}
+      />
+    ),
   },
   {
-    Header: "Прибыль",
-    accessor: "gross",
+    Header: "Тип",
+    accessor: DealTypeCell,
   },
   {
-    Header: "Налог",
-    accessor: "tax",
+    Header: "Сумма",
+    accessor: ({ sum }) => <NumberCell number={sum} />,
   },
   {
     id: "selection",
-    // @ts-ignore
     // eslint-disable-next-line react/prop-types
     Header: ({ getToggleAllRowsSelectedProps }) => (
       <Checkbox {...getToggleAllRowsSelectedProps()} />

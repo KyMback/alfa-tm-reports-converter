@@ -1,7 +1,7 @@
 import { Sheet } from "xlsx";
 import { getCell, parseDate, parseNumber, parseString } from "../utils";
 import { supportedIncomeTypes } from "../constants";
-import { IncomeParsingResult } from "typings/parsing";
+import { AlfaIncome } from "services/alfaReportParsingService/alfaTypings";
 
 export const parseIncomeItem = (
   sheet: Sheet,
@@ -39,5 +39,5 @@ type IncomeParseResult =
       incorrectFormat: true;
     }
   | {
-      result: IncomeParsingResult;
+      result: AlfaIncome;
     };

@@ -1,27 +1,69 @@
-import { Dividend } from "typings/internal";
-import { format } from "date-fns";
+import { Deal, Dividend } from "typings/internal";
+import { toCsv } from "utils/csv";
+import {
+  dealTypeToIntelinvestType,
+  getNoteForDealBySubOperation,
+  stockBuySellToSubOperationType,
+} from "./utils";
+import { csvFileSeparator, intelinvestCsvColumns } from "./constants";
+import { DividendDeal, MoneyWithdrawDeposit, StockBuySell } from "./typings";
+import { shortDate } from "utils/date";
 
 export class IntelinvestConvertingService {
-  public readonly intelinvestCsvColumns = [
-    "TYPE",
-    "DATE",
-    "TICKER",
-    "QUANTITY",
-    "PRICE",
-    "FEE",
-    "NKD",
-    "NOMINAL",
-    "CURRENCY",
-    "FEE_CURRENCY",
-    "NOTE",
-    "LINK_ID",
-  ];
+  public getCsvImportFile = (
+    deals: Array<Deal>,
+    dividends: Array<Dividend>,
+  ) => {
+    const dealItems = this.dealsToCsvItems(deals, 0);
+    const dividendsItems = this.dividendsToCsvItems(
+      dividends,
+      dealItems.length + 1,
+    );
 
-  public dividendsToCsvItems = (dividends: Array<Dividend>) => {
-    return dividends.flatMap<IntelinvestDividendDealItem>((dividend, index) => {
-      const date = format(dividend.date, "dd.MM.yyyy");
+    return toCsv(
+      intelinvestCsvColumns,
+      [...dealItems, ...dividendsItems],
+      csvFileSeparator,
+    );
+  };
+
+  private dealsToCsvItems = (deals: Array<Deal>, firstFreeLinkId: number) => {
+    return deals.flatMap<DealItem>((deal, index) => {
+      const dealType = dealTypeToIntelinvestType[deal.type];
+      const subOperationType = stockBuySellToSubOperationType[dealType];
+      const date = shortDate(deal.date);
+      const linkId = (firstFreeLinkId + index).toString();
+
+      return [
+        {
+          TYPE: dealType,
+          DATE: date,
+          TICKER: deal.ticker,
+          QUANTITY: deal.count.toString(),
+          PRICE: deal.price.toString(),
+          CURRENCY: deal.priceCurrency,
+          LINK_ID: linkId,
+        },
+        {
+          TYPE: subOperationType,
+          DATE: date,
+          PRICE: deal.sum.toString(),
+          CURRENCY: deal.sumCurrency,
+          NOTE: getNoteForDealBySubOperation(deal.instrument, subOperationType),
+          LINK_ID: linkId,
+        },
+      ];
+    });
+  };
+
+  private dividendsToCsvItems = (
+    dividends: Array<Dividend>,
+    firstFreeLinkId: number,
+  ) => {
+    return dividends.flatMap<DividendItem>((dividend, index) => {
+      const date = shortDate(dividend.date);
       const netIncome = dividend.gross - (dividend.tax || 0);
-      const linkId = index.toString();
+      const linkId = (firstFreeLinkId + index).toString();
 
       return [
         {
@@ -46,25 +88,7 @@ export class IntelinvestConvertingService {
   };
 }
 
-type IntelinvestDividendDealItem =
-  | IntelinvestDividendDeal
-  | IntelinvestMoneyDeposit;
-
-type IntelinvestDividendDeal = {
-  TYPE: "DIVIDEND";
-  DATE: string;
-  TICKER: string;
-  QUANTITY: string;
-  PRICE: string;
-  CURRENCY: string;
-  LINK_ID: string;
-};
-
-type IntelinvestMoneyDeposit = {
-  TYPE: "MONEYDEPOSIT";
-  DATE: string;
-  PRICE: string;
-  CURRENCY: string;
-  NOTE: string;
-  LINK_ID: string;
-};
+type DividendItem =
+  | DividendDeal
+  | (MoneyWithdrawDeposit & { TYPE: "MONEYDEPOSIT" });
+type DealItem = StockBuySell | MoneyWithdrawDeposit;

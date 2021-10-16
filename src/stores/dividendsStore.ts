@@ -16,10 +16,8 @@ export class DividendsStore {
   constructor() {
     makeObservable(this, {
       dividends: observable,
-      selectedDividendIds: observable,
       selectedDividends: computed,
       setDividends: action,
-      setSelectedDividendIds: action,
     });
   }
 

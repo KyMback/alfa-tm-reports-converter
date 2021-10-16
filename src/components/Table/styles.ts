@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { lessOrEqualTo, themeColor } from "styles/helpers";
 
-export const Table = styled.table`
+export const TableWrapper = styled.table`
   width: 100%;
 
   font-weight: bold;

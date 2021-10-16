@@ -1,7 +1,7 @@
 import { Sheet } from "xlsx";
 import { getCell, parseDate, parseNumber, parseString } from "../utils";
 import { supportedOutgoingsTypes } from "../constants";
-import { OutgoingsParsingResult } from "typings/parsing";
+import { AlfaOutgoing } from "services/alfaReportParsingService/alfaTypings";
 
 const typeRegexp = /.+акциям (.+) (\d+\.00)/;
 
@@ -50,5 +50,5 @@ type OutgoingsParseResult =
       incorrectFormat: true;
     }
   | {
-      result: OutgoingsParsingResult;
+      result: AlfaOutgoing;
     };

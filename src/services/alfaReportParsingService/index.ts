@@ -7,15 +7,16 @@ import {
   outgoingsTitle,
   sheetName,
 } from "./constants";
-import { ParseResult } from "typings/parsing";
+import { AlfaParseResult } from "services/alfaReportParsingService/alfaTypings";
 import { parseIncomeItem } from "services/alfaReportParsingService/parts/incomes";
 import { parseOutgoingsItem } from "services/alfaReportParsingService/parts/outgoings";
+import { parseDealsItems } from "services/alfaReportParsingService/parts/deals";
 
 const maxRowIndexRegexp = /\d+$/;
 const titleAndTableHeaderRowsCount = 2;
 
 export class AlfaReportParsingService {
-  public parse = async (report: File): Promise<ParseResult> => {
+  public parse = async (report: File): Promise<AlfaParseResult> => {
     const buffer = await report.arrayBuffer();
     const book = read(buffer, { type: "array", sheets: sheetName });
 
@@ -26,7 +27,7 @@ export class AlfaReportParsingService {
 
     const rowsCount = getRowsCount(sheet);
 
-    const result: ParseResult = {
+    const result: AlfaParseResult = {
       deals: [],
       incomes: [],
       outgoings: [],
@@ -50,7 +51,10 @@ export class AlfaReportParsingService {
 
       switch (rowType) {
         case "deals":
-          // TODO: Not supported now
+          const deal = parseDealsItems(sheet, index);
+          if ("result" in deal) {
+            result.deals.push(deal.result);
+          }
           break;
         case "income": {
           const incomeResult = parseIncomeItem(sheet, index);

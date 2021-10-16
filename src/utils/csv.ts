@@ -2,7 +2,7 @@ export const toCsv = <
   TKey extends string,
   TData extends Partial<Record<TKey, string>>,
 >(
-  columns: Array<TKey>,
+  columns: ReadonlyArray<TKey>,
   data: Array<TData>,
   separator: string,
 ) => {

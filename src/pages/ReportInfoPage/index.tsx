@@ -1,8 +1,13 @@
-import { DividendsTable } from "modules/DividendsTable";
+import { DividendsTable } from "modules/tables/DividendsTable";
 import { Tabs } from "components/Tabs";
 import { useState } from "react";
+import { DealsTable } from "modules/tables/DealsTable";
 
 const tabItems = [
+  {
+    title: "Сделки",
+    Content: DealsTable,
+  },
   {
     title: "Дивиденды",
     Content: DividendsTable,

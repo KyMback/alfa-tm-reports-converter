@@ -1,18 +1,12 @@
 import { InternalConvertingService } from "services/internalConvertingService";
 import { AlfaReportParsingService } from "services/alfaReportParsingService";
-import {
-  action,
-  computed,
-  makeObservable,
-  observable,
-  runInAction,
-} from "mobx";
-import { ParseResult } from "typings/parsing";
+import { action, makeObservable, observable, runInAction } from "mobx";
+import { AlfaParseResult } from "services/alfaReportParsingService/alfaTypings";
 import { DividendsStore } from "stores/dividendsStore";
-import { toCsv } from "utils/csv";
 import fileDownload from "js-file-download";
 import { IntelinvestConvertingService } from "services/intelinvest/intelinvestConvertingService";
 import { NotificationsManager } from "stores/notificationsManager";
+import { DealsStore } from "stores/dealsStore";
 
 export class RootStore {
   private readonly internalConvertingService = new InternalConvertingService();
@@ -21,18 +15,18 @@ export class RootStore {
     new IntelinvestConvertingService();
 
   public readonly notificationsManager = new NotificationsManager();
+
   public readonly dividendsStore = new DividendsStore();
+  public readonly dealsStore = new DealsStore();
 
-  public parsingResult: ParseResult | null = null;
+  public parsingResult: AlfaParseResult | null = null;
 
-  public get reportParsed() {
-    return this.parsingResult != null;
-  }
+  public reportParsed: boolean = false;
 
   constructor() {
     makeObservable(this, {
       parsingResult: observable,
-      reportParsed: computed,
+      reportParsed: observable,
       parseReport: action,
     });
   }
@@ -49,9 +43,13 @@ export class RootStore {
         result.incomes,
         result.outgoings,
       );
+      const deals = this.internalConvertingService.getDeals(result.deals);
+
       runInAction(() => {
+        this.reportParsed = true;
         this.parsingResult = result;
         this.dividendsStore.setDividends(dividends);
+        this.dealsStore.setDeals(deals);
       });
     } catch (e) {
       console.error(e);
@@ -59,14 +57,11 @@ export class RootStore {
   };
 
   public downloadIntelinvest = () => {
-    const dividends = this.intelinvestConvertingService.dividendsToCsvItems(
+    const csv = this.intelinvestConvertingService.getCsvImportFile(
+      this.dealsStore.selectedDeals,
       this.dividendsStore.selectedDividends,
     );
-    const csv = toCsv(
-      this.intelinvestConvertingService.intelinvestCsvColumns,
-      dividends,
-      ";",
-    );
-    fileDownload(csv, `dividends.csv`);
+
+    fileDownload(csv, `deals.csv`);
   };
 }
