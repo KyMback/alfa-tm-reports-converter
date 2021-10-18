@@ -44,7 +44,9 @@ export const HomePage = () => {
               "Здесь Вы можете конвертировать отчёты доверительного управления Альфа-Банка Беларуси в удобный вам формат."
             }
           </InfoWrapper>
-          <MoreInfoButton onClick={() => window.open(General.repositoryPath)}>
+          <MoreInfoButton
+            onClick={() => window.open(General.repositoryReadmePath)}
+          >
             {"О приложении"}
           </MoreInfoButton>
           <AttachButton onClick={open}>

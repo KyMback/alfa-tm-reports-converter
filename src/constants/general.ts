@@ -1,4 +1,4 @@
 export class General {
-  public static readonly repositoryPath =
-    "https://github.com/KyMback/alfa-tm-reports-converter";
+  public static readonly repositoryReadmePath =
+    "https://github.com/KyMback/alfa-tm-reports-converter#readme";
 }

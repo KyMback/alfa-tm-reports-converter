@@ -1,8 +1,5 @@
 import { injectStyle } from "react-toastify/dist/inject-style";
-import {
-  CloseButton,
-  NotificationContainerWrapper,
-} from "modules/NotificationsContainer/styles";
+import { CloseButton, NotificationContainerWrapper } from "./styles";
 import { MdClose } from "react-icons/md";
 
 injectStyle();

@@ -1,7 +1,6 @@
 import { InternalConvertingService } from "services/internalConvertingService";
 import { AlfaReportParsingService } from "services/alfaReportParsingService";
-import { action, makeObservable, observable, runInAction } from "mobx";
-import { AlfaParseResult } from "services/alfaReportParsingService/alfaTypings";
+import { makeObservable, observable, runInAction } from "mobx";
 import { DividendsStore } from "stores/dividendsStore";
 import fileDownload from "js-file-download";
 import { IntelinvestConvertingService } from "services/intelinvest/intelinvestConvertingService";
@@ -19,41 +18,40 @@ export class RootStore {
   public readonly dividendsStore = new DividendsStore();
   public readonly dealsStore = new DealsStore();
 
-  public parsingResult: AlfaParseResult | null = null;
-
   public reportParsed: boolean = false;
 
   constructor() {
     makeObservable(this, {
-      parsingResult: observable,
       reportParsed: observable,
-      parseReport: action,
     });
   }
 
   public parseReport = async (report: File) => {
     try {
-      const promise = this.alfaReportParsingService.parse(report);
-      const result = await this.notificationsManager.promise(promise, {
+      const promise = this.parseReportInternal(report);
+      await this.notificationsManager.promise(promise, {
         error: "Ошибка. Проверьте пожалуйста формат отчёта",
         pending: "Идёт разбор отчёта. Пожалуйста подождите...",
         success: "Отчёт успешно разобран",
       });
-      const dividends = this.internalConvertingService.getDividends(
-        result.incomes,
-        result.outgoings,
-      );
-      const deals = this.internalConvertingService.getDeals(result.deals);
-
-      runInAction(() => {
-        this.reportParsed = true;
-        this.parsingResult = result;
-        this.dividendsStore.setDividends(dividends);
-        this.dealsStore.setDeals(deals);
-      });
     } catch (e) {
       console.error(e);
     }
+  };
+
+  private parseReportInternal = async (report: File) => {
+    const result = await this.alfaReportParsingService.parse(report);
+    const dividends = this.internalConvertingService.getDividends(
+      result.incomes,
+      result.outgoings,
+    );
+    const deals = this.internalConvertingService.getDeals(result.deals);
+
+    runInAction(() => {
+      this.reportParsed = true;
+      this.dividendsStore.setDividends(dividends);
+      this.dealsStore.setDeals(deals);
+    });
   };
 
   public downloadIntelinvest = () => {
