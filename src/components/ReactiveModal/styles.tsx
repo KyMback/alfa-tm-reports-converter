@@ -24,10 +24,16 @@ function ReactModalAdapter({
 
 export const ModalPortal = styled(ReactModalAdapter)`
   .ReactModal__Overlay {
+    transition: opacity 0.2s;
+    opacity: 0;
     z-index: 150;
     position: fixed;
     inset: 0;
     background: ${themeColor("overlay")};
+  }
+
+  .ReactModal__Overlay--after-open {
+    opacity: 1;
   }
 `;
 
