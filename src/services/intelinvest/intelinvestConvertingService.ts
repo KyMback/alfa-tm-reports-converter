@@ -1,4 +1,3 @@
-import { Deal, Dividend } from "typings/internal";
 import { toCsv } from "utils/csv";
 import {
   dealTypeToIntelinvestType,
@@ -8,6 +7,8 @@ import {
 import { csvFileSeparator, intelinvestCsvColumns } from "./constants";
 import { DividendDeal, MoneyWithdrawDeposit, StockBuySell } from "./typings";
 import { shortDate } from "utils/date";
+import { Dividend } from "stores/domain/dividend";
+import { Deal } from "stores/domain/deal";
 
 export class IntelinvestConvertingService {
   public getCsvImportFile = (

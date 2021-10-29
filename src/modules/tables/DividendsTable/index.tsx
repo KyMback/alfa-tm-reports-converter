@@ -8,15 +8,16 @@ import { useRootStore } from "hooks/useRootStore";
 import { ResponsiveTable } from "modules/tables/styles";
 
 export const DividendsTable = observer(() => {
-  const { dividendsStore } = useRootStore();
+  const rootStore = useRootStore();
+  const dividendsTable = rootStore.ui.dividendsTable;
   const isTabletOrBelow = useTabletOrBelow();
 
   return (
     <ResponsiveTable
       columns={isTabletOrBelow ? mobileColumns : desktopColumns}
-      data={dividendsStore.dividends}
-      initialSelectedRowIds={dividendsStore.selectedDividendIds}
-      onRowSelected={dividendsStore.setSelectedDividendIds}
+      data={dividendsTable.orderedDividends}
+      initialSelectedRowIds={dividendsTable.selectedDividendIds}
+      onRowSelected={dividendsTable.setSelectedDividendIds}
     />
   );
 });

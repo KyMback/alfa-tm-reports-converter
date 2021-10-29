@@ -9,7 +9,7 @@ import { MobileFooter } from "modules/Footer/MobileFooter";
 import { useRootStore } from "hooks/useRootStore";
 
 export const Footer = () => {
-  const rootStore = useRootStore();
+  const { ui } = useRootStore();
   const isTabletOrBelow = useTabletOrBelow();
 
   return isTabletOrBelow ? (
@@ -18,9 +18,7 @@ export const Footer = () => {
     <FooterWrapper>
       <DownloadFormatsWrapper>
         <Text>{"Выберите формат для скачивания:"}</Text>
-        <Button onClick={rootStore.downloadIntelinvest}>
-          {".IntelInvest"}
-        </Button>
+        <Button onClick={ui.downloadIntelinvest}>{".IntelInvest"}</Button>
       </DownloadFormatsWrapper>
     </FooterWrapper>
   );

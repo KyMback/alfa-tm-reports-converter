@@ -9,22 +9,25 @@ import { ReportInfoPage } from "pages/ReportInfoPage";
 import { NotificationsContainer } from "modules/NotificationsContainer";
 import { MainLayout } from "modules/MainLayout";
 import { AppUpdateModal } from "modules/AppUpdateModal";
-import { useEffect } from "react";
-
-const rootStore = new RootStore();
+import { useEffect, useState } from "react";
 
 export const App = () => {
+  const [root] = useState(new RootStore());
+
   useEffect(() => {
-    rootStore.serviceWorkerManager.register();
+    root.serviceWorkerManager.register();
+    return () => root.dispose();
   }, []);
 
   return (
-    <RootStoreContext.Provider value={rootStore}>
+    <RootStoreContext.Provider value={root}>
       <ThemeProvider theme={defaultTheme}>
         <GlobalStyle />
         <MainLayout>
           <Observer>
-            {() => (rootStore.reportParsed ? <ReportInfoPage /> : <HomePage />)}
+            {() =>
+              root.reports.reportParsed ? <ReportInfoPage /> : <HomePage />
+            }
           </Observer>
         </MainLayout>
         <AppUpdateModal />

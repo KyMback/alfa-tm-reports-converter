@@ -14,19 +14,16 @@ import { ImAttachment } from "react-icons/im";
 import { Reports } from "constants/reports";
 import homeImage from "../../../assets/images/home_image.svg";
 import { useLaptopOrAbove } from "hooks/mediaQuery";
-import { General } from "constants/general";
+import { useState } from "react";
+import { HomePageStore } from "stores/ui/homePageStore";
 
 export const HomePage = () => {
   const isLaptopOrAbove = useLaptopOrAbove();
   const rootStore = useRootStore();
+  const [store] = useState(new HomePageStore(rootStore));
   const { getInputProps, getRootProps, open } = useDropzone({
     ...Reports.filesRestrictions,
-    onDrop: async (files) => {
-      if (files.length == 0) {
-        return;
-      }
-      await rootStore.parseReport(files[0]);
-    },
+    onDrop: store.loadReport,
   });
 
   return (
@@ -44,9 +41,7 @@ export const HomePage = () => {
               "Здесь Вы можете конвертировать отчёты доверительного управления Альфа-Банка Беларуси в удобный вам формат."
             }
           </InfoWrapper>
-          <MoreInfoButton
-            onClick={() => window.open(General.repositoryReadmePath)}
-          >
+          <MoreInfoButton onClick={store.openMoreInfoPage}>
             {"О приложении"}
           </MoreInfoButton>
           <AttachButton onClick={open}>
