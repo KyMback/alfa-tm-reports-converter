@@ -31,3 +31,7 @@ export const OutlineButton = styled(Button)`
 
   border: 2px solid ${themeColor("primary")};
 `;
+
+export const TextButton = styled(OutlineButton)`
+  border: none;
+`;

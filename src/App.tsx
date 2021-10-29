@@ -8,10 +8,16 @@ import { HomePage } from "pages/HomePage";
 import { ReportInfoPage } from "pages/ReportInfoPage";
 import { NotificationsContainer } from "modules/NotificationsContainer";
 import { MainLayout } from "modules/MainLayout";
+import { AppUpdateModal } from "modules/AppUpdateModal";
+import { useEffect } from "react";
 
 const rootStore = new RootStore();
 
 export const App = () => {
+  useEffect(() => {
+    rootStore.serviceWorkerManager.register();
+  }, []);
+
   return (
     <RootStoreContext.Provider value={rootStore}>
       <ThemeProvider theme={defaultTheme}>
@@ -21,6 +27,7 @@ export const App = () => {
             {() => (rootStore.reportParsed ? <ReportInfoPage /> : <HomePage />)}
           </Observer>
         </MainLayout>
+        <AppUpdateModal />
         <NotificationsContainer />
       </ThemeProvider>
     </RootStoreContext.Provider>
