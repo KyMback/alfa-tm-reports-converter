@@ -6,6 +6,7 @@ import fileDownload from "js-file-download";
 import { IntelinvestConvertingService } from "services/intelinvest/intelinvestConvertingService";
 import { NotificationsManager } from "stores/notificationsManager";
 import { DealsStore } from "stores/dealsStore";
+import { ServiceWorkerManager } from "stores/serviceWorkerManager";
 
 export class RootStore {
   private readonly internalConvertingService = new InternalConvertingService();
@@ -14,6 +15,7 @@ export class RootStore {
     new IntelinvestConvertingService();
 
   public readonly notificationsManager = new NotificationsManager();
+  public readonly serviceWorkerManager = new ServiceWorkerManager();
 
   public readonly dividendsStore = new DividendsStore();
   public readonly dealsStore = new DealsStore();

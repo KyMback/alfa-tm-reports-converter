@@ -3,7 +3,12 @@ import { clientsClaim } from "workbox-core";
 
 declare const self: any;
 
+addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
+});
+
 clientsClaim();
-self.skipWaiting();
 
 precacheAndRoute(self.__WB_MANIFEST);

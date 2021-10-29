@@ -14,10 +14,12 @@ import { MdClose } from "react-icons/md";
 
 interface Props<TData> {
   store: BaseReactiveModalStore<TData>;
+  title: string;
 }
 
 export const ReactiveModal = observer(function <TData>({
   store,
+  title,
   children,
 }: PropsWithChildren<Props<TData>>) {
   const close = useCallback(() => store.close(), [store]);
@@ -34,7 +36,7 @@ export const ReactiveModal = observer(function <TData>({
     >
       <Modal>
         <ModalHeaderWrapper>
-          <Title>{store.title}</Title>
+          <Title>{title}</Title>
           <ModalCloseIconButton onClick={close}>
             <MdClose />
           </ModalCloseIconButton>
@@ -49,10 +51,9 @@ export class BaseReactiveModalStore<TData> {
   public isOpen = false;
   private resolve?: (data?: TData) => void;
 
-  constructor(public title: string) {
+  constructor() {
     makeObservable(this, {
       isOpen: observable,
-      title: observable,
       close: action,
       open: action,
     });

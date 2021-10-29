@@ -11,14 +11,15 @@ import { useRootStore } from "hooks/useRootStore";
 
 export const MobileFooter = observer(() => {
   const rootStore = useRootStore();
-  const [reactiveModalStore] = useState(
-    new BaseReactiveModalStore<string>("Выберите формат для скачивания:"),
-  );
+  const [reactiveModalStore] = useState(new BaseReactiveModalStore<string>());
 
   return (
     <MobileFooterButton>
       <HiOutlineDownload onClick={reactiveModalStore.open} />
-      <ReactiveModal store={reactiveModalStore}>
+      <ReactiveModal
+        title="Выберите формат для скачивания:"
+        store={reactiveModalStore}
+      >
         <FormatsWrapper>
           <Button
             onClick={() => {
