@@ -10,7 +10,7 @@ import { Button } from "components/buttons";
 import { useRootStore } from "hooks/useRootStore";
 
 export const MobileFooter = observer(() => {
-  const rootStore = useRootStore();
+  const { ui } = useRootStore();
   const [reactiveModalStore] = useState(new BaseReactiveModalStore<string>());
 
   return (
@@ -23,7 +23,7 @@ export const MobileFooter = observer(() => {
         <FormatsWrapper>
           <Button
             onClick={() => {
-              rootStore.downloadIntelinvest();
+              ui.downloadIntelinvest();
               reactiveModalStore.close();
             }}
           >

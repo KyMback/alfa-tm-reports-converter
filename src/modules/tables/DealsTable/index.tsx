@@ -5,15 +5,16 @@ import { desktopColumns, mobileColumns } from "./columns";
 import { ResponsiveTable } from "../styles";
 
 export const DealsTable = observer(() => {
-  const { dealsStore } = useRootStore();
+  const rootStore = useRootStore();
+  const dealsTable = rootStore.ui.dealsTable;
   const isTabletOrBelow = useTabletOrBelow();
 
   return (
     <ResponsiveTable
       columns={isTabletOrBelow ? mobileColumns : desktopColumns}
-      onRowSelected={dealsStore.setSelectedDealsIds}
-      initialSelectedRowIds={dealsStore.selectedDealsIds}
-      data={dealsStore.deals}
+      onRowSelected={dealsTable.setSelectedDealsIds}
+      initialSelectedRowIds={dealsTable.selectedDealsIds}
+      data={dealsTable.orderedDeals}
     />
   );
 });

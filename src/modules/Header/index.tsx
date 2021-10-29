@@ -7,26 +7,21 @@ import { useLaptopOrAbove } from "hooks/mediaQuery";
 import { useRootStore } from "hooks/useRootStore";
 
 export const Header = observer(() => {
-  const rootStore = useRootStore();
+  const {
+    ui: { header },
+  } = useRootStore();
   const isLaptopOrAbove = useLaptopOrAbove();
   const { getInputProps, open } = useDropzone({
     ...Reports.filesRestrictions,
-    onDrop: async (files) => {
-      if (files.length == 0) {
-        return;
-      }
-      await rootStore.parseReport(files[0]);
-    },
+    onDrop: header.loadReport,
   });
 
-  const withReport = rootStore.reportParsed;
-
   return (
-    <HeaderWrapper onlyTitle={!withReport}>
+    <HeaderWrapper onlyTitle={!header.withReport}>
       <HeaderTitleLink href="./">
         <HeaderTitle>{"AlfaTM Converter"}</HeaderTitle>
       </HeaderTitleLink>
-      {withReport && isLaptopOrAbove ? (
+      {header.withReport && isLaptopOrAbove ? (
         <>
           <Button onClick={open}>{"Загрузить другой отчёт"}</Button>
           <input {...getInputProps()} />
