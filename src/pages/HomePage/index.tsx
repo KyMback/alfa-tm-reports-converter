@@ -12,10 +12,10 @@ import { useDropzone } from "react-dropzone";
 import { emptyFunction } from "utils/functions";
 import { ImAttachment } from "react-icons/im";
 import { Reports } from "constants/reports";
-import homeImage from "../../../assets/images/home_image.svg";
+import homeImage from "assets/images/home_image.svg";
 import { useLaptopOrAbove } from "hooks/mediaQuery";
 import { useState } from "react";
-import { HomePageStore } from "stores/ui/homePageStore";
+import { HomePageStore } from "pages/HomePage/homePageStore";
 
 export const HomePage = () => {
   const isLaptopOrAbove = useLaptopOrAbove();

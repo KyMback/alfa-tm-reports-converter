@@ -9,7 +9,7 @@ export class HomePageStore {
       return;
     }
 
-    await this.root.reports.loadAlfaReport(files[0]);
+    await this.root.ui.uploadReports.uploadAlfaReport(files[0]);
   };
 
   public openMoreInfoPage = () => {

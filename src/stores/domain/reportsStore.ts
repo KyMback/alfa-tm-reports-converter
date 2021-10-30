@@ -13,27 +13,13 @@ export class ReportsStore {
     this.dealsStore = new DealsStore();
     this.dividendsStore = new DividendsStore();
 
-    makeObservable<ReportsStore, "loadAlfaReportInternal">(this, {
+    makeObservable<ReportsStore>(this, {
       reportParsed: observable,
       loadAlfaReport: action,
-      loadAlfaReportInternal: action,
     });
   }
 
   public loadAlfaReport = async (report: File) => {
-    try {
-      const promise = this.loadAlfaReportInternal(report);
-      await this.root.notificationsManager.promise(promise, {
-        error: "Ошибка. Проверьте пожалуйста формат отчёта",
-        pending: "Идёт разбор отчёта. Пожалуйста подождите...",
-        success: "Отчёт успешно разобран",
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  private loadAlfaReportInternal = async (report: File) => {
     const result = await this.root.alfaReportParsingService.parse(report);
 
     runInAction(() => {
