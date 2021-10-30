@@ -9,14 +9,14 @@
     "start": "cross-env NODE_ENV=development webpack serve -c ./configs/webpack.config.dev.js --open",
     "build": "cross-env NODE_ENV=production webpack -c ./configs/webpack.config.prod.js",
     "bundle-analyze": "cross-env ANALYZE=true yarn build",
-    "lint": "eslint . --cache --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky install",
     "pre-commit": "lint-staged",
     "preci": "rm -fr node_modules",
     "ci": "yarn install --frozen-lockfile"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "eslint --cache --fix"
+    "*.{js,jsx,ts,tsx}": "eslint ."
   },
   "dependencies": {
     "date-fns": "^2.24.0",

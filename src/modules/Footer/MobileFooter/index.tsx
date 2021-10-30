@@ -23,7 +23,7 @@ export const MobileFooter = observer(() => {
         <FormatsWrapper>
           <Button
             onClick={() => {
-              ui.downloadIntelinvest();
+              ui.downloadFormats.downloadIntelinvest();
               reactiveModalStore.close();
             }}
           >

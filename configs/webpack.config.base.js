@@ -27,6 +27,7 @@ module.exports = {
       modules: resolve(srcPath, "modules"),
       styles: resolve(srcPath, "styles"),
       constants: resolve(srcPath, "constants"),
+      assets: resolve(rootPath, "assets"),
       // To optimize bundle size
       xlsx: "xlsx/dist/xlsx.mini.min.js",
       mobx: "mobx/dist/mobx.esm.production.min.js",

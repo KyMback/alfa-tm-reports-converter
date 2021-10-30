@@ -5,23 +5,24 @@ import { Reports } from "constants/reports";
 import { observer } from "mobx-react-lite";
 import { useLaptopOrAbove } from "hooks/mediaQuery";
 import { useRootStore } from "hooks/useRootStore";
+import { useState } from "react";
+import { HeaderStore } from "modules/Header/headerStore";
 
 export const Header = observer(() => {
-  const {
-    ui: { header },
-  } = useRootStore();
+  const root = useRootStore();
+  const [store] = useState(new HeaderStore(root));
   const isLaptopOrAbove = useLaptopOrAbove();
   const { getInputProps, open } = useDropzone({
     ...Reports.filesRestrictions,
-    onDrop: header.loadReport,
+    onDrop: store.loadReport,
   });
 
   return (
-    <HeaderWrapper onlyTitle={!header.withReport}>
+    <HeaderWrapper onlyTitle={!store.withReport}>
       <HeaderTitleLink href="./">
         <HeaderTitle>{"AlfaTM Converter"}</HeaderTitle>
       </HeaderTitleLink>
-      {header.withReport && isLaptopOrAbove ? (
+      {store.withReport && isLaptopOrAbove ? (
         <>
           <Button onClick={open}>{"Загрузить другой отчёт"}</Button>
           <input {...getInputProps()} />

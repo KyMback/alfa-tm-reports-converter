@@ -18,7 +18,9 @@ export const Footer = () => {
     <FooterWrapper>
       <DownloadFormatsWrapper>
         <Text>{"Выберите формат для скачивания:"}</Text>
-        <Button onClick={ui.downloadIntelinvest}>{".IntelInvest"}</Button>
+        <Button onClick={ui.downloadFormats.downloadIntelinvest}>
+          {".IntelInvest"}
+        </Button>
       </DownloadFormatsWrapper>
     </FooterWrapper>
   );

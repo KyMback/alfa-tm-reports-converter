@@ -21,7 +21,8 @@
       "pages/*": ["pages/*"],
       "modules/*": ["modules/*"],
       "styles/*": ["styles/*"],
-      "constants/*": ["constants/*"]
+      "constants/*": ["constants/*"],
+      "assets/*": ["../assets/*"]
     }
   },
   "include": ["./src"],
