@@ -65,8 +65,9 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: join(publicPath, "**/*"),
+          from: resolve(publicPath, "**/*"),
           to: join(distPath, "[name][ext]"),
+          noErrorOnMissing: true,
           globOptions: {
             ignore: [join(publicPath, "index.html")],
           },
