@@ -15,7 +15,7 @@ export class DividendsTableStore {
   }
 
   public get selectedDividends() {
-    return this.root.reports.dividendsStore.dividends.filter(
+    return this.orderedDividends.filter(
       (div, index) => this.selectedDividendIds[index],
     );
   }

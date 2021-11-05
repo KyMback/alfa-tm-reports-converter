@@ -12,7 +12,7 @@ export class DealsTableStore {
   }
 
   public get selectedDeals() {
-    return this.root.reports.dealsStore.deals.filter(
+    return this.orderedDeals.filter(
       (div, index) => this.selectedDealsIds[index],
     );
   }
