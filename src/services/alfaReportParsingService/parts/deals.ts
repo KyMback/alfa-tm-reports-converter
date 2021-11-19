@@ -21,9 +21,13 @@ export const parseDealsItems = (
     return { notSupportedType: true };
   }
 
+  const isDealFromPlatform = !!getCell(sheet, "K", index);
+
   return {
     result: {
-      date: parseDate(sheet, "A", index),
+      date: isDealFromPlatform
+        ? parseDate(sheet, "K", index)
+        : parseDate(sheet, "A", index),
       type: type,
       price: parseNumber(sheet, "C", index),
       priceCurrency: parseString(sheet, "D", index),

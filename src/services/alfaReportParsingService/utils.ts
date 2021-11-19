@@ -12,6 +12,9 @@ const supportedColumns = [
   "H",
   "I",
   "J",
+  "K",
+  "L",
+  "M",
 ] as const;
 
 type Column = typeof supportedColumns[number];

@@ -1,7 +1,7 @@
 import { read, Sheet } from "xlsx";
 import { getTitle } from "./utils";
 import {
-  dealsTitle,
+  dealsTitles,
   depositsWithdrawals,
   incomeTitle,
   outgoingsTitle,
@@ -97,32 +97,41 @@ const getRowsType = (
     };
   }
 
-  switch (title) {
-    case dealsTitle: {
-      return {
-        newType: "deals",
-      };
-    }
-    case incomeTitle: {
-      return {
-        newType: "income",
-      };
-    }
-    case outgoingsTitle: {
-      return {
-        newType: "outgoings",
-      };
-    }
-    case depositsWithdrawals: {
-      return {
-        newType: "depositsWithdrawals",
-      };
-    }
+  const firstCorrect = titleToSupportedTypeCheckers.find((ch) =>
+    ch.predicate(title),
+  );
+
+  if (firstCorrect) {
+    return {
+      newType: firstCorrect.type,
+    };
   }
 
   // Empty value === old type
   return {};
 };
+
+const titleToSupportedTypeCheckers: Array<{
+  predicate: (title: string) => boolean;
+  type: RowType;
+}> = [
+  {
+    type: "deals",
+    predicate: (title) => dealsTitles.some((t) => title.includes(t)),
+  },
+  {
+    type: "depositsWithdrawals",
+    predicate: (title) => title.includes(depositsWithdrawals),
+  },
+  {
+    type: "income",
+    predicate: (title) => title === incomeTitle,
+  },
+  {
+    type: "outgoings",
+    predicate: (title) => title === outgoingsTitle,
+  },
+];
 
 const getRowsCount = (sheet: Sheet) => {
   const ref = sheet["!ref"];
